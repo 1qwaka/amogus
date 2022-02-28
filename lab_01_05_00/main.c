@@ -14,7 +14,7 @@ int main(void)
 
     rc = scanf("%ld%ld", &a, &n);
 
-    if (rc != 2 or n < 0)
+    if (rc != 2 or n <= 0)
     {
         exit_code = ERR_IN;
     }
