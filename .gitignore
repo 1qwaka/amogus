@@ -3,3 +3,10 @@
 *.o
 *.pch
 *.gch
+*.cflags
+*.config
+*.cxxflags
+*.files
+*.includes
+*.creator
+*.creator.user
