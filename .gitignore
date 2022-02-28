@@ -10,3 +10,4 @@
 *.includes
 *.creator
 *.creator.user
+*.py
