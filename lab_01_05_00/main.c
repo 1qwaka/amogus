@@ -2,7 +2,7 @@
 #include <math.h>
 
 #define ERR_IN 1
-#define or ||
+#define OR ||
 
 int main(void)
 {
