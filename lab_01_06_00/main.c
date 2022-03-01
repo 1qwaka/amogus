@@ -2,7 +2,9 @@
 #include <math.h>
 
 #define ERR_IN 1
+#define ERR_DATA 2
 #define FLOAT_ERR 1e-6
+#define OR ||
 
 short triangle_type(double ax, double ay, double bx, double by, double cx, double cy);
 
@@ -16,6 +18,10 @@ int main(void)
     if (rc != 6)
     {
         exit_code = ERR_IN;
+    }
+    else if (fabs(ax / bx - ay / by ) < FLOAT_ERR && fabs(bx / cx - by / cy) < FLOAT_ERR)
+    {
+        exit_code = ERR_DATA;
     }
     else
     {
