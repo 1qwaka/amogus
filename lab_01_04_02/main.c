@@ -31,7 +31,7 @@ int get_hours(double seconds)
 
 int get_minutes(double seconds)
 {
-    return ((int)seconds % 3600) / 60
+    return ((int)seconds % 3600) / 60;
 }
 
 int get_seconds(double seconds)
