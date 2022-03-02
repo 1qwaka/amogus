@@ -6,6 +6,8 @@
 #define FLOAT_ERR 1e-6
 #define OR ||
 
+double cross_product(double x1, double y1, double x2, double y2, double x3, double y3);
+
 short triangle_type(double ax, double ay, double bx, double by, double cx, double cy);
 
 int main(void)
@@ -19,7 +21,7 @@ int main(void)
     {
         exit_code = ERR_IN;
     }
-    else if (fabs(ax / bx - ay / by ) < FLOAT_ERR && fabs(bx / cx - by / cy) < FLOAT_ERR)
+    else if (cross_product(ax, ay, bx, by, cx, cy) < FLOAT_ERR)
     {
         exit_code = ERR_DATA;
     }
@@ -32,6 +34,10 @@ int main(void)
     return exit_code;
 }
 
+double cross_product(double x1, double y1, double x2, double y2, double x3, double y3)
+{
+    return (x3 - x1) * (y2 - y1) - (y3 - y1) * (x2 - x1);
+}
 
 short triangle_type(double ax, double ay, double bx, double by, double cx, double cy)
 {
