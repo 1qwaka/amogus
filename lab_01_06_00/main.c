@@ -21,7 +21,7 @@ int main(void)
     {
         exit_code = ERR_IN;
     }
-    else if (cross_product(ax, ay, bx, by, cx, cy) < FLOAT_ERR)
+    else if (fabs(cross_product(ax, ay, bx, by, cx, cy)) < FLOAT_ERR)
     {
         exit_code = ERR_DATA;
     }
