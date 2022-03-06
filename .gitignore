@@ -12,3 +12,4 @@
 *.creator.user
 *.py
 test.c
+**/.vscode/**
