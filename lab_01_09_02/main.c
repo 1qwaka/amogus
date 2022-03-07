@@ -13,7 +13,7 @@ int main(void)
     short rc = 0;
     int exit_code = 0;
 
-    while(1 == (rc = scanf("%lf", &x)) && x >= 0)
+    while (1 == (rc = scanf("%lf", &x)) && x >= 0)
     {
         sum += sqrt(1 + i + x);
         ++i;
