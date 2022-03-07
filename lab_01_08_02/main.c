@@ -24,7 +24,7 @@ int main(void)
         printf("Error: invalid input");
         exit_code = ERR_IN;
     }
-    else if (a < 0 || a > (1ll << 32))
+    else if (a < 0 || a > (1ll << 32) || n < 0)
     {
         // printf("err data %lu ", sizeof (unsigned long));
         printf("Error: invalid data");
@@ -33,11 +33,11 @@ int main(void)
     else
     {
         uint32_t result_a = (uint32_t)a;
-        uint32_t result = 0;
-        if (n >= 0)
-            result = (result_a << n) | (result_a >> (32 - n));
-        else
-            result = (result_a >> abs(n)) | (result_a << (32 - abs(n)));
+        uint32_t result = (result_a << n) | (result_a >> (32 - n));
+        // if (n >= 0)
+        //     result = (result_a << n) | (result_a >> (32 - n));
+        // else
+        //     result = (result_a >> abs(n)) | (result_a << (32 - abs(n)));
 
         // printf("result %ld", result);
         // print_binary(result_a);
