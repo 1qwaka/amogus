@@ -24,7 +24,7 @@ int main(void)
         printf("Error: invalid input");
         exit_code = ERR_IN;
     }
-    else if (a < 0 || a > (1ll << 32) || n < 0)
+    else if (n < 0)
     {
         // printf("err data %lu ", sizeof (unsigned long));
         printf("Error: invalid data");
