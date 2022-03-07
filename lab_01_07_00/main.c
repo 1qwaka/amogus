@@ -43,7 +43,7 @@ double approximate_exp(double x, double eps)
     double cur = 1;
     long i = 1;
 
-    while (fabs(cur *= x/i) >= eps)
+    while (fabs(cur *= x / i) >= eps)
     {
         value += cur;
         i++;
