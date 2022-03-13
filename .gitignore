@@ -13,3 +13,4 @@
 *.py
 test.c
 **/.vscode/**
+**/run_tests.sh
