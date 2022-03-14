@@ -10,6 +10,8 @@ double cross_product(double x1, double y1, double x2, double y2, double x3, doub
 
 short triangle_type(double ax, double ay, double bx, double by, double cx, double cy);
 
+double length(double ax, double ay, double bx, double by);
+
 int main(void)
 {
     double ax = 0, ay = 0, bx = 0, by = 0, cx = 0, cy = 0;
@@ -45,9 +47,9 @@ short triangle_type(double ax, double ay, double bx, double by, double cx, doubl
     double side_a = 0, side_b = 0, side_c = 0;
     short result = 0;
 
-    side_a = sqrt((bx - cx) * (bx - cx) + (by - cy) * (by - cy));
-    side_b = sqrt((ax - cx) * (ax - cx) + (ay - cy) * (ay - cy));
-    side_c = sqrt((bx - ax) * (bx - ax) + (by - ay) * (by - ay));
+    side_a = length(bx, by, cx, cy);
+    side_b = length(ax, ay, cx, cy);
+    side_c = length(ax, ay, bx, by);
 
     if (side_c > side_b)
     {
@@ -72,4 +74,9 @@ short triangle_type(double ax, double ay, double bx, double by, double cx, doubl
         result = 0;
 
     return result;
+}
+
+double length(double ax, double ay, double bx, double by)
+{
+    return sqrt((ax - bx) * (ax - bx) + (ay - by) * (ay - by));
 }
