@@ -8,8 +8,6 @@
 
 void print_binary(uint32_t i);
 
-// unsigned long cycle_shift(unsigned long i);
-
 int main(void)
 {
     long long a = 0x00000000, n = 0;
@@ -17,8 +15,6 @@ int main(void)
     int exit_code = 0;
 
     rc = scanf("%lld%lld", &a, &n);
-    // printf("hello %d ", 1 << 8);
-    // rc = 2;
     if (rc != 2)
     {
         printf("Error: invalid input");
@@ -26,7 +22,6 @@ int main(void)
     }
     else if (n < 0)
     {
-        // printf("err data %lu ", sizeof (unsigned long));
         printf("Error: invalid data");
         exit_code = ERR_DATA;
     }
@@ -34,14 +29,6 @@ int main(void)
     {
         uint32_t result_a = (uint32_t)a;
         uint32_t result = (result_a << n) | (result_a >> (32 - n));
-        // if (n >= 0)
-        //     result = (result_a << n) | (result_a >> (32 - n));
-        // else
-        //     result = (result_a >> abs(n)) | (result_a << (32 - abs(n)));
-
-        // printf("result %ld", result);
-        // print_binary(result_a);
-        // printf("\n======================\n");
         printf("Result: ");
         print_binary(result);
     }
@@ -51,21 +38,10 @@ int main(void)
 
 void print_binary(uint32_t n)
 {
-    // short found_first = 0;
     short size = 32 - 1;
 
     for (short i = size; i > -1; i--)
     {
-        // printf("i = %d\n", i);
-        // printf("N = %u\n", n);
         printf("%u", (n & (1 << i)) >> i);
-
-        // printf("%d: %ld\n", i, n >> i);
-        // if (!found_first && (n >> i)) 
-        //     found_first = 1;
-        // if (found_first)
-        // {
-        //     printf("%u", (n & (1 << i)) >> i);
-        // }
     }
 }
