@@ -12,7 +12,11 @@ else
 fi
 
 set -f
-"$dir"/../../app.exe $args < "$stream_in" > out.txt
+if [ -z "$(printenv USE_VALGRIND)" ]; then
+    "$dir"/../../app.exe $args < "$stream_in" > out.txt
+else 
+    valgrind "$dir"/../../app.exe $args < "$stream_in" > out.txt
+fi
 return_code="$?"
 set +f
 
