@@ -2,7 +2,6 @@
 #include <math.h>
 
 #define ERR_IN 1
-#define OR ||
 
 int main(void)
 {
@@ -14,7 +13,7 @@ int main(void)
 
     rc = scanf("%ld%ld", &a, &n);
 
-    if (rc != 2 OR n <= 0)
+    if (rc != 2 || n <= 0)
     {
         exit_code = ERR_IN;
     }

@@ -4,7 +4,6 @@
 #define ERR_IN 1
 #define ERR_DATA 2
 #define FLOAT_ERR 1e-6
-#define OR ||
 
 double cross_product(double x1, double y1, double x2, double y2, double x3, double y3);
 
