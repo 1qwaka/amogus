@@ -45,7 +45,7 @@ int input_array(int arr[], int *size)
         rc = 0;
 
     if (rc == 1)
-        for(int i = 0; i < *size && rc == 1; ++i)
+        for (int i = 0; i < *size && rc == 1; ++i)
             rc = scanf("%d", arr + i);
     
     return rc;
