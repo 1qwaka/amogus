@@ -2,7 +2,7 @@
 
 dir=$(dirname "$0")
 # 0 is flase; 1 is true; пока что не задается через аргументы
-silent=1
+silent=0
 
 total=0
 pos_failed=0
@@ -23,7 +23,10 @@ do
         i=$((i-1))
         total=$((total+i))
         if [ "$silent" -eq 0 ]; then
-            echo "total positive tests: ${i#0}"
+            if [ "$i" -ne 0 ]; then
+                i="${i#0}"
+            fi
+            echo "total positive tests: $i"
         fi
         break
     fi
@@ -69,18 +72,12 @@ do
         i=$((i-1))
         total=$((total+i))
         if [ "$silent" -eq 0 ]; then
-            echo "total negative tests: ${i#0}"
+            if [ "$i" -ne 0 ]; then
+                i="${i#0}"
+            fi
+            echo "total negative tests: ${i}"
         fi
         break
-    fi
-
-    if [ ! -f "$output_file" ]; then
-
-        if [ "$silent" -eq 0 ]; then
-            echo "$(tput setaf 1)no output for test $i$(tput sgr0)"
-        fi
-
-        continue
     fi
     
     if "$dir"/neg_case.sh "$input_file" "$args_file"; then
