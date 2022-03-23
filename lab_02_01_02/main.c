@@ -18,12 +18,12 @@ int main(void)
 
     int nums[MAX_INPUT_AMOUNT] = { 0 };
     int n = 0;
-    double result = 0;
 
     rc = input_array(nums, &n);
    
     if (rc)
     {
+        double result;
         result = count_average_negative(nums, n, &exit_code);
 
         if (exit_code == OK)
