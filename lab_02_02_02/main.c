@@ -81,8 +81,8 @@ int correct_number(int n)
     int last_digit = first_digit;
 
     int i = 0;
+    
     do {
-
         last_digit = (n % (int)pow(10, i + 1)) / (int)pow(10, i);
         ++i;
     } while (n / (int)pow(10, i) != 0);
