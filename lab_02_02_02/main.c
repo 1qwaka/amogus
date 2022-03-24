@@ -72,12 +72,8 @@ void form_array(int from[], int size_from, int to[], int *size_to)
 {
     *size_to = 0;
     for (int i = 0; i < size_from; ++i)
-        if (correct_number(from[i])){
-            // printf("correct %d \n", from[i]);
+        if (correct_number(from[i]))
             to[(*size_to)++] = from[i];
-            // printf("size == %d\n", *size_to);
-        }
-    // printf("in end size == %d\n", *size_to);
 }
 
 int correct_number(int n)
@@ -91,6 +87,5 @@ int correct_number(int n)
         ++i;
     } while (n / (int)pow(10, i) != 0);
 
-    // printf("n = %d : last = %d : first = %d\n", n, last_digit, first_digit);
     return first_digit == last_digit;
 }
