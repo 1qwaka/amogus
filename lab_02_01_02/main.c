@@ -48,7 +48,7 @@ int input_array(int arr[], int *size)
         for (int i = 0; i < *size && rc == 1; ++i)
             rc = scanf("%d", arr + i);
     
-    return rc;
+    return rc > 0;
 }
 
 double count_average_negative(int arr[], int size, int *exit_code)
