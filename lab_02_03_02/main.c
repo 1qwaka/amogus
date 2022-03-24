@@ -49,7 +49,7 @@ int input_array(int arr[], int *size)
 {
     int rc = scanf("%d", size);
 
-    if (*size < 0 || *size > MAX_INPUT_AMOUNT)
+    if (*size <= 0 || *size > MAX_INPUT_AMOUNT)
         rc = 0;
 
     if (rc == 1)
