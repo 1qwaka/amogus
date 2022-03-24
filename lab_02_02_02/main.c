@@ -32,7 +32,6 @@ int main(void)
         int result_size = 0;
 
         form_array(nums, n, result, &result_size);
-        // printf("after function size=%d\n", result_size);
 
         if (result_size > 0)
             print_array(result, result_size);
