@@ -45,7 +45,7 @@ int main(void)
 
 int input_array(int *pa, int **pb)
 {
-    int size;
+    int size = 0;
     int rc = scanf("%d", &size);
 
     if (size <= 0 || size > MAX_INPUT_AMOUNT)
@@ -80,7 +80,7 @@ int count_value(int *pa, int *pb, int *exit_code)
         int tmp = 0;
         prev = *pa++;
 
-        while(pa < pb)
+        while (pa < pb)
         {
             if ((tmp = prev * *pa) < min)
                 min = tmp;
