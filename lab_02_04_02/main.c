@@ -26,7 +26,7 @@ int main(void)
 
     rc = input_array(nums, &n);
    
-    if (rc == 1)
+    if (rc)
     {
         int result[MAX_INPUT_AMOUNT] = { 0 };
 
