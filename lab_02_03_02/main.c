@@ -36,6 +36,8 @@ int main(void)
 
         if (result_size > 0)
             print_array(result, result_size);
+        else
+            exit_code = ERR_DATA;
     }
     else
     {
