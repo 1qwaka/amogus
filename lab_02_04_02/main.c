@@ -26,7 +26,7 @@ int main(void)
 
     rc = input_array(nums, &n);
    
-    if (rc)
+    if (rc && n > 0)
     {
         int result[MAX_INPUT_AMOUNT] = { 0 };
 
@@ -39,6 +39,10 @@ int main(void)
 
         if (rc == ERR_SPEC)
             exit_code = ERR_SPEC;
+    }
+    else if (n == 0) 
+    {
+        exit_code = ERR_DATA;
     }
     else
     {
