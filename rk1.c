@@ -8,11 +8,11 @@
 
 #define MAX_ARR_SIZE 10
 
-int input_array(int arr[], int *size);
+int input_array(int *arr, int *size);
 
-int group_array(int arr[], int size);
+int group_array(int *arr, int size);
 
-void print_array(int arr[], int size);
+void print_array(int *arr, int size);
 
 int main(void)
 {
@@ -42,7 +42,7 @@ int main(void)
 }
 
 
-int input_array(int arr[], int *size)
+int input_array(int *arr, int *size)
 {
     int rc = 0;
     rc = scanf("%d", size);
@@ -66,7 +66,7 @@ int input_array(int arr[], int *size)
     return rc;
 }
 
-int group_array(int arr[], int size)
+int group_array(int *arr, int size)
 {
     int tmp = 0;
 
@@ -103,7 +103,7 @@ int group_array(int arr[], int size)
     return OK;
 }
 
-void print_array(int arr[], int size)
+void print_array(int *arr, int size)
 {
     // нет проверки на массив совсем без элементов
     printf("%d", arr[0]);
