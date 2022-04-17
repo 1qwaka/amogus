@@ -140,26 +140,3 @@ int find_element(int **matrix, int rows, int cols, int *return_value)
     
     return rc;
 }
-
-int array_mul(int *arr, int size)
-{
-    int result = 1;
-    for (int i = 0; i < size; ++i)
-        result *= arr[i];
-
-    return result;   
-}
-
-void copy_array(int *src, int *dst, int size)
-{
-    for (int i = 0; i < size; ++i)
-        dst[i] = src[i];   
-}
-
-void switch_arrrays(int *arr1, int *arr2, int size)
-{
-    int tmp_array[MAX_COLS] = { 0 };
-    copy_array(arr1, tmp_array, size);
-    copy_array(arr2, arr1, size);
-    copy_array(tmp_array, arr2, size);
-}
