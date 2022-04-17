@@ -26,7 +26,7 @@ int main(void)
     int cols = 0, rows = 0;
     int buffer[MAX_ROWS][MAX_COLS] = { 0 }; 
     int *matrix[MAX_COLS] = { 0 };
-    int *result_array[MAX_COLS] = { 0 };
+    int result_array[MAX_COLS] = { 0 };
 
     transform(matrix, &buffer[0][0], MAX_ROWS, MAX_COLS);
     exit_code = input_matrix(matrix, &rows, &cols);
@@ -53,7 +53,7 @@ int main(void)
 
 int correct_size(int size, int max_value)
 {
-    return size > 0 && size < max_value;
+    return size > 0 && size <= max_value;
 }
 
 int input_matrix(int **matrix, int *rows, int *cols)
@@ -77,7 +77,9 @@ int input_matrix(int **matrix, int *rows, int *cols)
             }
         }
 
-        if (rc != 1)
+        if (rc == 1)
+            rc = OK;
+        else
             rc = ERR_INPUT;
     }
 
