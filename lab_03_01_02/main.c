@@ -127,6 +127,11 @@ int process_matrix(int *result_arr, int **matrix, int rows, int cols)
             result_arr[i] = flag;
         }
     }
+    else if (rows == 1)
+    {
+        for (int i = 0; i < cols; ++i)
+            result_arr[i] = 0;
+    }
     else
     {
         rc = ERR_DATA;
