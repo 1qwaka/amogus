@@ -17,7 +17,7 @@ void transform(int **matrix, int *from_buffer, int rows, int cols);
 
 int fill_array(int *arr, int *arr_size, int **matrix, int rows, int cols);
 
-void put_array_in_matrix(int *arr, int size, int **matrix, int rows, int cols);
+void put_array_in_matrix(int *arr, int **matrix, int rows, int cols);
 
 int is_prime(int value);
 
@@ -45,7 +45,7 @@ int main(void)
         if (exit_code == OK)
         {
             reverse_array(result_array, arr_size);
-            put_array_in_matrix(result_array, arr_size, matrix, rows, cols);
+            put_array_in_matrix(result_array, matrix, rows, cols);
             print_matrix(matrix, rows, cols);
         }
         else
@@ -134,16 +134,17 @@ int fill_array(int *arr, int *arr_size, int **matrix, int rows, int cols)
     return rc;
 }
 
-void put_array_in_matrix(int *arr, int size, int **matrix, int rows, int cols)
+void put_array_in_matrix(int *arr, int **matrix, int rows, int cols)
 {
     int cur_pos = 0;
     for (int i = 0; i < rows; ++i)
+    {
         for (int j = 0; j < cols; ++j)
-            if (cur_pos < size)
-            {
-                matrix[i][j] = arr[cur_pos];
-                ++cur_pos;
-            }
+        {
+            if (is_prime(matrix[i][j]))
+                matrix[i][j] = arr[cur_pos++];
+        }
+    }
 }
 
 int is_prime(int value)
