@@ -130,7 +130,7 @@ int find_element(int **matrix, int rows, int cols, int *return_value)
             }
         }
 
-        if(!any_found)
+        if (!any_found)
             rc = ERR_DATA;
     }
     else
