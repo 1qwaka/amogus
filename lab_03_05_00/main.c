@@ -153,5 +153,5 @@ int is_prime(int value)
     if (value == 0)
         result = 0;
 
-    return result;    
+    return result;
 }
