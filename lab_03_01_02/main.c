@@ -15,6 +15,8 @@ void print_matrix(int **matrix, int rows, int cols);
 
 void transform(int **matrix, int *from_buffer, int rows, int cols);
 
+int custom_sign(int value);
+
 int process_matrix(int *result_arr, int **matrix, int rows, int cols);
 
 void print_array(int *arr, int size);
@@ -62,9 +64,9 @@ int input_matrix(int **matrix, int *rows, int *cols)
 
     rc = scanf("%d%d", rows, cols);
     rc = rc == 2 &&
-         correct_size(*rows, MAX_ROWS) &&
-         correct_size(*cols, MAX_COLS) 
-         ? OK : ERR_INPUT;
+        correct_size(*rows, MAX_ROWS) &&
+        correct_size(*cols, MAX_COLS) 
+        ? OK : ERR_INPUT;
 
     if (rc == OK)
     {
