@@ -15,3 +15,6 @@ test.c
 **/.vscode/**
 **/run_tests.sh
 **/out.txt
+*.gcno
+*.gcda
+*.gcov
