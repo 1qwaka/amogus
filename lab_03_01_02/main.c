@@ -15,6 +15,10 @@ void print_matrix(int **matrix, int rows, int cols);
 
 void transform(int **matrix, int *from_buffer, int rows, int cols);
 
+int process_matrix(int *result_arr, int **matrix, int rows, int cols);
+
+void print_array(int *arr, int size);
+
 int main(void)
 {
     int exit_code = OK;
@@ -22,12 +26,27 @@ int main(void)
     int cols = 0, rows = 0;
     int buffer[MAX_ROWS][MAX_COLS] = { 0 }; 
     int *matrix[MAX_COLS] = { 0 };
+    int *result_array[MAX_COLS] = { 0 };
 
     transform(matrix, &buffer[0][0], MAX_ROWS, MAX_COLS);
+    exit_code = input_matrix(matrix, &rows, &cols);
 
-    input_matrix(matrix, &rows, &cols);
-
-    print_matrix(matrix, rows, cols);
+    if (exit_code == OK)
+    {
+        exit_code = process_matrix(result_array, matrix, rows, cols);
+        if (exit_code == OK)
+        {
+            print_array(result_array, cols);
+        }
+        else
+        {
+            exit_code = ERR_DATA;
+        }
+    }
+    else
+    {
+        exit_code = ERR_INPUT;
+    }
 
     return exit_code;
 }
@@ -58,18 +77,8 @@ int input_matrix(int **matrix, int *rows, int *cols)
             }
         }
 
-        if (rc == 1)
-        {
-            // пытаемся считать еще одно лишнее число, если оно есть в потоке, значит ошибка ввода
-            int tmp;
-            rc = scanf("%d", &tmp);
-            if (rc == 1)
-                rc = ERR_INPUT;
-        }
-        else
-        {
+        if (rc != 1)
             rc = ERR_INPUT;
-        }
     }
 
     return rc;
@@ -91,4 +100,40 @@ void transform(int **matrix, int *from_buffer, int rows, int cols)
 {
     for (int i = 0; i < rows; ++i)
         matrix[i] = from_buffer + i * cols;
+}
+
+int custom_sign(int value)
+{
+    return value < 0 ? -1 : (value == 0 ? 0 : 1);
+}
+
+int process_matrix(int *result_arr, int **matrix, int rows, int cols)
+{
+    int rc = OK;
+
+    if (rows > 1)
+    {
+        for (int i = 0; i < cols; ++i)
+        {
+            int flag = 1;
+            for (int j = 1; j < rows && flag; ++j)
+            {
+                flag = flag && custom_sign(matrix[j - 1][i]) * custom_sign(matrix[j][i]) < 0;
+            }
+            result_arr[i] = flag;
+        }
+    }
+    else
+    {
+        rc = ERR_DATA;
+    }
+    
+    return rc;
+}
+
+void print_array(int *arr, int size)
+{
+    for (int i = 0; i < size - 1; i++)
+        printf("%d ", arr[i]);
+    printf("%d", arr[size - 1]);
 }
