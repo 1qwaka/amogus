@@ -21,6 +21,8 @@ void put_array_in_matrix(int *arr, int size, int **matrix, int rows, int cols);
 
 int is_prime(int value);
 
+void reverse_array(int *array, int size);
+
 int main(void)
 {
     int exit_code = OK;
@@ -42,6 +44,7 @@ int main(void)
 
         if (exit_code == OK)
         {
+            reverse_array(result_array, arr_size);
             put_array_in_matrix(result_array, arr_size, matrix, rows, cols);
             print_matrix(matrix, rows, cols);
         }
@@ -154,4 +157,15 @@ int is_prime(int value)
         result = 0;
 
     return result;
+}
+
+void reverse_array(int *arr, int size)
+{
+    int tmp = 0;
+    for (int i = 0; i < size / 2; ++i)
+    {
+        tmp = arr[i];
+        arr[i] = arr[size - i - 1];
+        arr[size - i - 1] = tmp;
+    }
 }
