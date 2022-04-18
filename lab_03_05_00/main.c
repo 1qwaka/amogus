@@ -156,6 +156,9 @@ int is_prime(int value)
   
     if (value == 0 || value == 1)
         result = 0;
+    
+    if (value == 2)
+        result = 1;
 
     return result;
 }
