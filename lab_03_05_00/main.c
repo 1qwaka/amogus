@@ -154,7 +154,7 @@ int is_prime(int value)
         if (value % i == 0)
             result = 0;
   
-    if (value == 0)
+    if (value == 0 || value == 1)
         result = 0;
 
     return result;
