@@ -7,9 +7,9 @@
 
 #define MAX_INPUT_AMOUNT 10
 
-int input_array(int arr[], int *size);
+int input_array(int *arr, int *size);
 
-double count_average_negative(int arr[], int size, int *exit_code);
+double count_average_negative(int *arr, int size, int *exit_code);
 
 int main(void)
 {
@@ -37,7 +37,7 @@ int main(void)
     return exit_code;
 }
 
-int input_array(int arr[], int *size)
+int input_array(int *arr, int *size)
 {
     int rc = scanf("%d", size);
 
@@ -51,7 +51,7 @@ int input_array(int arr[], int *size)
     return rc > 0;
 }
 
-double count_average_negative(int arr[], int size, int *exit_code)
+double count_average_negative(int *arr, int size, int *exit_code)
 {
     double result = 0;
     int negative_amount = 0;

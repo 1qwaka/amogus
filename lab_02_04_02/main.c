@@ -10,11 +10,11 @@
 #define MAX_INPUT_AMOUNT 10
 #define FLOAT_ERR        1e-6
 
-int input_array(int arr[], int *size);
+int input_array(int *arr, int *size);
 
-void print_array(int arr[], int size);
+void print_array(int *arr, int size);
 
-void bubble_sort(int arr[], int size);
+void bubble_sort(int *arr, int size);
 
 int main(void)
 {
@@ -52,7 +52,7 @@ int main(void)
     return exit_code;
 }
 
-int input_array(int arr[], int *size)
+int input_array(int *arr, int *size)
 {
     int i = 0;
     int rc = 0;
@@ -72,14 +72,14 @@ int input_array(int arr[], int *size)
     return rc;
 }
 
-void print_array(int arr[], int size)
+void print_array(int *arr, int size)
 {
     for (int i = 0; i < size - 1; i++)
         printf("%d ", arr[i]);
     printf("%d", arr[size - 1]);
 }
 
-void bubble_sort(int arr[], int size)
+void bubble_sort(int *arr, int size)
 {
     int tmp = 0;
     for (int i = 0; i < size; ++i)

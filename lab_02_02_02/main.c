@@ -8,11 +8,11 @@
 
 #define MAX_INPUT_AMOUNT 10
 
-int input_array(int arr[], int *size);
+int input_array(int *arr, int *size);
 
-void print_array(int arr[], int size);
+void print_array(int *arr, int size);
 
-void form_array(int from[], int size_from, int to[], int *size_to);
+void form_array(int *from, int size_from, int *to, int *size_to);
 
 int correct_number(int n);
 
@@ -46,7 +46,7 @@ int main(void)
     return exit_code;
 }
 
-int input_array(int arr[], int *size)
+int input_array(int *arr, int *size)
 {
     int rc = scanf("%d", size);
 
@@ -60,14 +60,14 @@ int input_array(int arr[], int *size)
     return rc > 0;
 }
 
-void print_array(int arr[], int size)
+void print_array(int *arr, int size)
 {
     for (int i = 0; i < size - 1; i++)
         printf("%d ", arr[i]);
     printf("%d", arr[size - 1]);
 }
 
-void form_array(int from[], int size_from, int to[], int *size_to)
+void form_array(int *from, int size_from, int *to, int *size_to)
 {
     *size_to = 0;
     for (int i = 0; i < size_from; ++i)
