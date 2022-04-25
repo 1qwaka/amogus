@@ -7,6 +7,8 @@
 #define MAX_ROWS 10
 #define MAX_COLS 10
 #define RESULT_ROWS MAX_ROWS * 2
+#define REQUIRED_SUMS 2
+#define FILLER -1
 
 int correct_size(int size, int max_value);
 
@@ -125,9 +127,9 @@ int process_matrix(int **result_matrix, int *result_rows, int **matrix, int rows
             not_even_sums += digits_sum(matrix[i][j]) % 2 == 1;
         }
 
-        if (not_even_sums >= 2)
+        if (not_even_sums >= REQUIRED_SUMS)
         {
-            fill_array(result_matrix[*result_rows], cols, -1);
+            fill_array(result_matrix[*result_rows], cols, FILLER);
             ++(*result_rows);
         }
 
