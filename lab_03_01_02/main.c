@@ -30,7 +30,7 @@ int main(void)
     int *matrix[MAX_COLS] = { 0 };
     int result_array[MAX_COLS] = { 0 };
 
-    transform(matrix, &buffer[0][0], MAX_ROWS, MAX_COLS);
+    transform(matrix, buffer[0], MAX_ROWS, MAX_COLS);
     exit_code = input_matrix(matrix, &rows, &cols);
 
     if (exit_code == OK)

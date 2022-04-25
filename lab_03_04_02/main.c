@@ -26,7 +26,7 @@ int main(void)
     int buffer[MAX_ROWS][MAX_COLS] = { 0 }; 
     int *matrix[MAX_COLS] = { 0 };
 
-    transform(matrix, &buffer[0][0], MAX_ROWS, MAX_COLS);
+    transform(matrix, buffer[0], MAX_ROWS, MAX_COLS);
 
     exit_code = input_matrix(matrix, &rows, &cols);
 

@@ -21,7 +21,7 @@ int array_mul(int *arr, int size);
 
 void copy_array(int *src, int *dst, int size);
 
-void switch_arrrays(int *arr1, int *arr2, int size);
+void switch_arrrays(int **arr1, int **arr2);
 
 int main(void)
 {
@@ -31,7 +31,7 @@ int main(void)
     int buffer[MAX_ROWS][MAX_COLS] = { 0 }; 
     int *matrix[MAX_COLS] = { 0 };
 
-    transform(matrix, &buffer[0][0], MAX_ROWS, MAX_COLS);
+    transform(matrix, buffer[0], MAX_ROWS, MAX_COLS);
 
     exit_code = input_matrix(matrix, &rows, &cols);
 
@@ -120,7 +120,7 @@ int process_matrix(int **matrix, int rows, int cols)
         {
             if (array_mul(matrix[j], cols) > array_mul(matrix[j + 1], cols))
             {
-                switch_arrrays(matrix[j], matrix[j + 1], cols);
+                switch_arrrays(matrix + j, matrix + j + 1);
                 any_switched = 1;
             }
         }
@@ -144,10 +144,9 @@ void copy_array(int *src, int *dst, int size)
         dst[i] = src[i];   
 }
 
-void switch_arrrays(int *arr1, int *arr2, int size)
+void switch_arrrays(int **arr1, int **arr2)
 {
-    int tmp_array[MAX_COLS] = { 0 };
-    copy_array(arr1, tmp_array, size);
-    copy_array(arr2, arr1, size);
-    copy_array(tmp_array, arr2, size);
+    int *tmp = *arr1;
+    *arr1 = *arr2;
+    *arr2 = tmp;
 }
