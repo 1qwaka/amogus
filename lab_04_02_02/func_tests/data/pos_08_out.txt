@@ -1,0 +1,4 @@
+abc yes
+bca yes
+cbc yes
+bbb yes
