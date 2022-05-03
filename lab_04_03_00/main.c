@@ -5,9 +5,9 @@
 #define ERR_INPUT 1
 #define ERR_DATA  2
 
-#define CHAR_ARR_SIZE 1024
-#define WORD_ARR_SIZE 64
-#define WORD_MAX_SIZE 64
+#define CHAR_ARR_SIZE 256
+#define WORD_ARR_SIZE CHAR_ARR_SIZE / WORD_MAX_SIZE
+#define WORD_MAX_SIZE 16
 
 #define WHITESPACES " \t\n"
 #define DELIMETER_STR " "
@@ -20,7 +20,7 @@ void print_result(char *result_str);
 
 void transform_string(char *str);
 
-void put_string(char *dst, int *idx, char *src);
+void put_string(char *dst, int idx, char *src);
 
 void delete_char(char *str, int idx);
 
@@ -36,10 +36,6 @@ int main(void)
     fgets(chars, sizeof(chars), stdin);
 
     split_words(chars, (char **)words, &words_size);
-
-    printf("words_size: %d\n", words_size);
-    for (int i = 0; i < words_size; ++i)
-        printf("%s\n", words[i]);
 
     exit_code = create_string(words, words_size, result_str);
 
@@ -89,11 +85,17 @@ int create_string(char **words, int words_size, char *result_str)
             if (strcmp(words[words_size - 1], last_word) != 0)
             {
                 transform_string(words[words_size - 1]);
-                put_string(result_str, &i, words[words_size - 1]);
-                if (words_size > 1)                
-                    put_string(result_str, &i, DELIMETER_STR);
+                put_string(result_str, i, words[words_size - 1]);
+                i += strlen(words[words_size - 1]);
+                if (words_size > 1)
+                {
+                    put_string(result_str, i, DELIMETER_STR);
+                    i += strlen(DELIMETER_STR);
+                }       
                 else
+                {
                     result_str[i] = '\0';
+                }
             }
             --words_size;
         }
@@ -121,7 +123,6 @@ void transform_string(char *str)
            else
                ++str;
     }
-       
 }
 
 void delete_char(char *str, int idx)
@@ -129,11 +130,10 @@ void delete_char(char *str, int idx)
     memmove(str + idx, str + idx + 1, strlen(str + idx));
 }
 
-void put_string(char *dst, int *idx, char *src)
+void put_string(char *dst, int idx, char *src)
 {
     int len = strlen(src);
-    char remember = dst[*idx + len];
-    strcpy(dst + *idx, src);
-    *idx += len;
-    dst[*idx] = remember;
+    char remember = dst[idx + len];
+    strcpy(dst + idx, src);
+    dst[idx + len] = remember;
 }
