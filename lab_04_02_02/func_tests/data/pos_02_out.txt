@@ -1,5 +1,4 @@
-Result: 
-abc yes
+Result: abc yes
 bca yes
 cbc yes
 bbb yes

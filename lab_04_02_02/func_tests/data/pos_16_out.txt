@@ -1,2 +1,1 @@
-Result: 
-word no
+Result: word no

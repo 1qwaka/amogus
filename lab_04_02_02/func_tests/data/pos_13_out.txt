@@ -1,5 +1,4 @@
-Result: 
-green no
+Result: green no
 white no
 blue no
 orange no

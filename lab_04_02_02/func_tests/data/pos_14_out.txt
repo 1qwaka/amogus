@@ -1,2 +1,1 @@
-Result: 
-word yes
+Result: word yes

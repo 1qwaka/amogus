@@ -121,7 +121,7 @@ int *result_arr)
 
 void print_result(char **question_words, int *result_arr, int size)
 {
-    puts("Result: ");
+    printf("Result: ");
     for (int i = 0; i < size; ++i)
         if (result_arr[i] != NO_PRINT)
             printf("%s %s\n", question_words[i], result_arr[i] == YES ? YES_STRING : NO_STRING);    

@@ -1,2 +1,1 @@
-Result: 
-yes no
+Result: yes no

@@ -1,5 +1,4 @@
-Result: 
-one no
+Result: one no
 two no
 three no
 four no
