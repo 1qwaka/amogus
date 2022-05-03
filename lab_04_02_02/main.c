@@ -5,9 +5,9 @@
 #define ERR_INPUT 1
 #define ERR_DATA  2
 
-#define CHAR_ARR_SIZE 1024
-#define WORD_ARR_SIZE 64
-#define WORD_MAX_SIZE 64
+#define CHAR_ARR_SIZE 256
+#define WORD_ARR_SIZE CHAR_ARR_SIZE / WORD_MAX_SIZE
+#define WORD_MAX_SIZE 16
 
 #define YES 1
 #define NO 0
