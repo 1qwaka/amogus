@@ -65,8 +65,15 @@ int main(void)
 
     exit_code = parse_data(chars, &data);
 
-    int is_valid = exit_code == OK && valid_data(&data);
-    print_result(is_valid);
+    if ( exit_code == OK)
+    {
+        int is_valid = valid_data(&data);
+        print_result(is_valid);
+    }
+    else
+    {
+        exit_code = ERR_INPUT;
+    }
 
     return exit_code;
 }
