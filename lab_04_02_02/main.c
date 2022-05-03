@@ -18,13 +18,9 @@
 
 #define WHITESPACES " \t\n"
 
-void print_whole(char *buf, int len, FILE *to);
-
 int contains_word(char **words_array, int size, char *word);
 
 int contains_char(char *word, char c);
-
-int contains_any_char(char *word, char *chars);
 
 void split_words(char *chars, char **words, int *words_size);
 
@@ -50,27 +46,12 @@ int main(void)
 
     fgets(question_chars, sizeof(question_chars), stdin);
     fgets(answer_chars, sizeof(answer_chars), stdin);
-    // puts("===readed");
 
     split_words(question_chars, (char **)question_words, &question_size);
     split_words(answer_chars, (char **)answer_words, &answer_size);
 
-
-    // printf("\nwords_size: %d\n", question_size);
-    // for (int i = 0; i < question_size; ++i)
-    //     printf("%s\n", question_words[i]);
-
-    // printf("\nanswer_size: %d\n", answer_size);
-    // for (int i = 0; i < answer_size; ++i)
-    //     printf("%s\n", answer_words[i]);
-
     delete_repeat(question_words, question_size);
     exit_code = process_words(question_words, question_size, answer_words, answer_size, result_arr);
-
-    // printf("\nresult_arr_size: %d\n", question_size);
-    // for (int i = 0; i < question_size; ++i)
-    //     printf("%d  ", result_arr[i]);
-    // puts("");
 
     if (exit_code == OK)
     {
@@ -80,8 +61,6 @@ int main(void)
     {
         exit_code = ERR_DATA;
     }
-
-    // print_whole(question_chars, 32, stdout);
 
     return exit_code;
 }
@@ -109,15 +88,6 @@ void split_words(char *chars, char **words, int *words_size)
     }
 }
 
-void print_whole(char *buf, int len, FILE *to)
-{
-    for (int i = 0; i < len; ++i)
-        if (buf[i])
-            fputc(buf[i], to);
-        else
-            fputs("\\0", to);
-}
-
 int contains_word(char **words_array, int size, char *word)
 {
     int contains = 0;
@@ -135,12 +105,10 @@ int process_words(char **question_words, int question_size,
     for (int i = 0; i < question_size; ++i)
         if (question_words[i] != NULL)
         {
-            // printf("answer_words[%d] = %s\n", i, answer_words[i]);
             result_arr[i] = NO;
             for (int j = 0; j < answer_size && result_arr[i] == NO; ++j)
             {
                 result_arr[i] = strcmp(question_words[i], answer_words[j]) == 0 ? YES : NO;
-                // printf("cmp( %s , %s ) = %d\n", question_words[i], answer_words[j], result_arr[i]);
             }
         }
         else
@@ -163,19 +131,6 @@ void delete_repeat(char **questions_word, int size)
     for (int i = 1; i < size; ++i)
         if (contains_word(questions_word, i, questions_word[i]))
             questions_word[i] = NULL;
-}
-
-int contains_any_char(char *word, char *chars)
-{
-    int contains = 0;
-    while (*word && !contains)
-    {
-        char *c = chars;
-        while (*c && !contains)
-            contains = *word == *(c++);
-        ++word;    
-    }
-    return contains;
 }
 
 int contains_char(char *word, char c)
