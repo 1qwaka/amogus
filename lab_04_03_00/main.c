@@ -60,7 +60,7 @@ void split_words(char *chars, char **words, int *words_size)
     {
         *words_size = 1;
         int i = 1;
-        while ( (words[i] = strtok(NULL, WHITESPACES)) != NULL )
+        while ((words[i] = strtok(NULL, WHITESPACES)) != NULL)
             ++i;
         *words_size = i;        
     }
@@ -102,7 +102,6 @@ int create_string(char **words, int words_size, char *result_str)
 
         if (i == 0)
             rc = ERR_DATA;
-
     }
     else
     {
@@ -118,10 +117,10 @@ void transform_string(char *str)
     if (first)
     {
         while (*str)
-           if (*str == first)
-               delete_char(str, 0);
-           else
-               ++str;
+            if (*str == first)
+                delete_char(str, 0);
+            else
+                ++str;
     }
 }
 

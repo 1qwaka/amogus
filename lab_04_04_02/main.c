@@ -31,7 +31,8 @@
 
 #define MONTHES_DAYS { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 }
 
-typedef struct {
+typedef struct 
+{
     int day;
     char *month;
     int year;
@@ -103,7 +104,7 @@ void to_lower(char *str)
 {
     while (*str)
     {
-        if ('A' <= *str &&  *str <= 'Z')
+        if ('A' <= *str && *str <= 'Z')
             *str += ('a' - 'A');
         ++str;
     }

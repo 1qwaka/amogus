@@ -25,8 +25,8 @@ int contains_char(char *word, char c);
 void split_words(char *chars, char **words, int *words_size);
 
 int process_words(char **question_words, int question_size,
-                  char **answer_words, int answer_size,
-                  int *result_arr);
+char **answer_words, int answer_size,
+int *result_arr);
 
 void print_result(char **question_words, int *result_arr, int size);
 
@@ -99,8 +99,8 @@ int contains_word(char **words_array, int size, char *word)
 }
 
 int process_words(char **question_words, int question_size,
-                  char **answer_words, int answer_size,
-                  int *result_arr)
+char **answer_words, int answer_size,
+int *result_arr)
 {
     for (int i = 0; i < question_size; ++i)
         if (question_words[i] != NULL)
@@ -121,6 +121,7 @@ int process_words(char **question_words, int question_size,
 
 void print_result(char **question_words, int *result_arr, int size)
 {
+    puts("Result: ");
     for (int i = 0; i < size; ++i)
         if (result_arr[i] != NO_PRINT)
             printf("%s %s\n", question_words[i], result_arr[i] == YES ? YES_STRING : NO_STRING);    
