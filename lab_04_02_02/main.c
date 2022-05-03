@@ -16,7 +16,7 @@
 #define YES_STRING "yes"
 #define NO_STRING "no"
 
-#define WHITESPACES " \t\n"
+#define DELIMETER " ,;:-.!?\t\n"
 
 int contains_word(char **words_array, int size, char *word);
 
@@ -72,14 +72,14 @@ void split_words(char *chars, char **words, int *words_size)
     int should_exit = 0;
     while (!should_exit)
     {
-        while (contains_char(WHITESPACES, chars[i]))
+        while (contains_char(DELIMETER, chars[i]))
             ++i;
         
         should_exit = !chars[i];
         if (chars[i])
         {
             words[(*words_size)++] = chars + i;
-            while (chars[i] && !contains_char(WHITESPACES, chars[i]))
+            while (chars[i] && !contains_char(DELIMETER, chars[i]))
                 ++i;
             
             should_exit = !chars[i];

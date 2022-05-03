@@ -9,7 +9,7 @@
 #define WORD_ARR_SIZE CHAR_ARR_SIZE / WORD_MAX_SIZE
 #define WORD_MAX_SIZE 16
 
-#define WHITESPACES " \t\n"
+#define DELIMETER " ,;:-.!?\t\n"
 #define DELIMETER_STR " "
 
 void split_words(char *chars, char **words, int *words_size);
@@ -54,13 +54,13 @@ int main(void)
 void split_words(char *chars, char **words, int *words_size)
 {
     *words_size = 0;
-    words[0] = strtok(chars, WHITESPACES);
+    words[0] = strtok(chars, DELIMETER);
 
     if (words[0] != NULL)
     {
         *words_size = 1;
         int i = 1;
-        while ((words[i] = strtok(NULL, WHITESPACES)) != NULL)
+        while ((words[i] = strtok(NULL, DELIMETER)) != NULL)
             ++i;
         *words_size = i;        
     }

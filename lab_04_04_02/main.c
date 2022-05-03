@@ -10,7 +10,7 @@
 #define WORD_ARR_SIZE CHAR_ARR_SIZE / WORD_MAX_SIZE
 #define WORD_MAX_SIZE 16
 
-#define WHITESPACES " \t\n"
+#define DELIMETER " ,;:-.!?\t\n"
 
 #define YES_STR "YES"
 #define NO_STR  "NO"
@@ -65,7 +65,7 @@ int main(void)
 
     exit_code = parse_data(chars, &data);
 
-    if ( exit_code == OK)
+    if (exit_code == OK)
     {
         int is_valid = valid_data(&data);
         print_result(is_valid);
@@ -90,9 +90,9 @@ int parse_data(char *chars, data_t *data)
 {
     int rc = OK;
     data->day = data->year = -1;
-    char *day_str = strtok(chars, WHITESPACES);
-    char *month_str = strtok(NULL, WHITESPACES);
-    char *year_str = strtok(NULL, WHITESPACES);
+    char *day_str = strtok(chars, DELIMETER);
+    char *month_str = strtok(NULL, DELIMETER);
+    char *year_str = strtok(NULL, DELIMETER);
 
     if (day_str != NULL && month_str != NULL && year_str != NULL)
     {
