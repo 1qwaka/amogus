@@ -58,7 +58,7 @@ int main(void)
 {
     int exit_code = OK;
     
-    char chars[CHAR_ARR_SIZE] = { 0 };
+    char chars[CHAR_ARR_SIZE + 1] = { 0 };
     data_t data = { 0 };
 
     fgets(chars, sizeof(chars), stdin);

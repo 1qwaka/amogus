@@ -16,7 +16,7 @@
 #define YES_STRING "yes"
 #define NO_STRING "no"
 
-#define DELIMETER " ,;:-.!?\t\n"
+#define DELIMETER " ,;:-.!?\n"
 
 int contains_word(char **words_array, int size, char *word);
 
@@ -36,8 +36,8 @@ int main(void)
 {
     int exit_code = OK;
     
-    char question_chars[CHAR_ARR_SIZE] = { 0 };
-    char answer_chars[CHAR_ARR_SIZE] = { 0 };
+    char question_chars[CHAR_ARR_SIZE + 1] = { 0 };
+    char answer_chars[CHAR_ARR_SIZE + 1] = { 0 };
     char *question_words[WORD_ARR_SIZE] = { 0 };
     char *answer_words[WORD_ARR_SIZE] = { 0 };
     int question_size = 0;

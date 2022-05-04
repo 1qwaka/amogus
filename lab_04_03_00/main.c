@@ -28,10 +28,10 @@ int main(void)
 {
     int exit_code = OK;
     
-    char chars[CHAR_ARR_SIZE] = { 0 };
+    char chars[CHAR_ARR_SIZE + 1] = { 0 };
     char *words[WORD_ARR_SIZE] = { 0 };
     int words_size = 0;
-    char result_str[CHAR_ARR_SIZE] = { 0 };
+    char result_str[CHAR_ARR_SIZE + 1] = { 0 };
 
     fgets(chars, sizeof(chars), stdin);
 
