@@ -11,7 +11,7 @@
 #define WORD_MAX_SIZE 16
 
 #define YEAR_WIDTH 4U
-#define DAY_WIDTH  1U
+#define DAY_WIDTH  2U
 
 #define DELIMETER " \t\n"
 
@@ -86,13 +86,13 @@ int input_str(char *buffer, int size)
     int rc = OK;
     int i = 0;
     int c = 0;
-    while((c = fgetc(stdin)) != EOF && i < size - 1)
+    while ((c = fgetc(stdin)) != EOF && i < size - 1)
     {
         buffer[i] = (char)c;
         ++i;
     }
 
-    if((c = fgetc(stdin)) != EOF && strchr(DELIMETER, c) == NULL)
+    if ((c = fgetc(stdin)) != EOF && strchr(DELIMETER, c) == NULL)
         rc = ERR_INPUT;
 
     // printf("c: <%d>\n", c);
@@ -168,9 +168,10 @@ int valid_data(data_t *data)
     int day = 0;
     int year = 0;
 
-    valid = valid && data->year != NULL && strlen(data->year) >= YEAR_WIDTH &&
+    valid = valid && data->year != NULL && strlen(data->year) == YEAR_WIDTH &&
         parse_num(data->year, &year) && year > 0;
-    valid = valid && data->day != NULL && strlen(data->day) &&
+    // printf("s: <%s>\n", strlen(data->day) == DAY_WIDTH);
+    valid = valid && data->day != NULL && strlen(data->day) == DAY_WIDTH &&
         parse_num(data->day, &day) && day > 0 && day <= get_days(data->month, year);
 
     return valid;
