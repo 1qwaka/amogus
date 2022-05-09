@@ -151,9 +151,9 @@ int valid_data(data_t *data)
     int day = 0;
     int year = 0;
 
-    valid = valid && data->year != NULL && strlen(data->year) >= YEAR_WIDTH &&
+    valid = valid && data->year != NULL && strlen(data->year) &&
         parse_num(data->year, &year) && year > 0;
-    valid = valid && data->day != NULL && strlen(data->day) >= DAY_WIDTH &&
+    valid = valid && data->day != NULL && strlen(data->day) &&
         parse_num(data->day, &day) && day > 0 && day <= get_days(data->month, year);
 
     return valid;
