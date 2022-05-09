@@ -13,7 +13,7 @@
 #define YEAR_WIDTH 4U
 #define DAY_WIDTH  1U
 
-#define DELIMETER " \n"
+#define DELIMETER " \t\n"
 
 #define YES_STR "YES"
 #define NO_STR  "NO"
@@ -57,6 +57,8 @@ int get_days(char *month, int year);
 
 int leap_year(int year);
 
+int input_str(char *buffer, int size);
+
 int main(void)
 {
     int exit_code = OK;
@@ -64,13 +66,10 @@ int main(void)
     char chars[CHAR_ARR_SIZE + 1] = { 0 };
     data_t data = { 0 };
 
-    fgets(chars, sizeof(chars), stdin);
-
-    exit_code = parse_data(chars, &data);
-
-    char c;
-    if ((c = fgetc(stdin)) == EOF || strchr(DELIMETER, c) != NULL)
+    exit_code = input_str(chars, sizeof(chars));
+    if (exit_code == OK)
     {
+        exit_code = parse_data(chars, &data);
         int is_valid = valid_data(&data);
         print_result(is_valid);
     }
@@ -80,6 +79,24 @@ int main(void)
     }
 
     return exit_code;
+}
+
+int input_str(char *buffer, int size)
+{
+    int rc = OK;
+    int i = 0;
+    int c = 0;
+    while((c = fgetc(stdin)) != EOF && i < size - 1)
+    {
+        buffer[i] = (char)c;
+        ++i;
+    }
+
+    if((c = fgetc(stdin)) != EOF && strchr(DELIMETER, c) == NULL)
+        rc = ERR_INPUT;
+
+    // printf("c: <%d>\n", c);
+    return rc;
 }
 
 void print_result(int is_valid)
@@ -151,7 +168,7 @@ int valid_data(data_t *data)
     int day = 0;
     int year = 0;
 
-    valid = valid && data->year != NULL && strlen(data->year) &&
+    valid = valid && data->year != NULL && strlen(data->year) >= YEAR_WIDTH &&
         parse_num(data->year, &year) && year > 0;
     valid = valid && data->day != NULL && strlen(data->day) &&
         parse_num(data->day, &day) && day > 0 && day <= get_days(data->month, year);
