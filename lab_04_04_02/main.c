@@ -10,7 +10,10 @@
 #define WORD_ARR_SIZE CHAR_ARR_SIZE / WORD_MAX_SIZE
 #define WORD_MAX_SIZE 16
 
-#define DELIMETER " ,;:-.!?\t\n"
+#define YEAR_WIDTH 4U
+#define DAY_WIDTH  2U
+
+#define DELIMETER " \n"
 
 #define YES_STR "YES"
 #define NO_STR  "NO"
@@ -33,9 +36,9 @@
 
 typedef struct 
 {
-    int day;
+    char *day;
     char *month;
-    int year;
+    char  *year;
 } data_t;
 
 int parse_data(char *chars, data_t *data);
@@ -65,7 +68,8 @@ int main(void)
 
     exit_code = parse_data(chars, &data);
 
-    if (exit_code == OK)
+    char c;
+    if ((c = fgetc(stdin)) == EOF || strchr(DELIMETER, c) != NULL)
     {
         int is_valid = valid_data(&data);
         print_result(is_valid);
@@ -89,27 +93,43 @@ void print_result(int is_valid)
 int parse_data(char *chars, data_t *data)
 {
     int rc = OK;
-    data->day = data->year = -1;
+    // data->day = data->year = -1;
     char *day_str = strtok(chars, DELIMETER);
     char *month_str = strtok(NULL, DELIMETER);
     char *year_str = strtok(NULL, DELIMETER);
+    // char *additional = strtok(NULL, DELIMETER);
 
-    if (day_str != NULL && month_str != NULL && year_str != NULL)
-    {
-        data->month = month_str;
-        rc = parse_num(day_str, &data->day) && parse_num(year_str, &data->year) ? OK : ERR_DATA;
-    }
-    else
-    {
-        rc = ERR_INPUT;
-    }
+    // if (day_str != NULL && month_str != NULL && year_str != NULL)
+    // {
+    data->day = day_str;
+    data->month = month_str;
+    data->year = year_str;
+        // if (strlen(day_str) <= 2 && strlen(year_str) <= 4)
+        // {
+        // rc = parse_num(day_str, &data->day) && parse_num(year_str, &data->year) ? OK : ERR_DATA;
+
+        // }
+        
+    // }
+    // else
+    // {
+    //     // data->valid = 0;
+    //     rc = ERR_INPUT;
+    // }
+
+
+
+    // if (rc == OK)
+    //     data->valid = 1;
+    // else
+    //     data->valid = 0;
 
     return rc;
 }
 
 void to_lower(char *str)
 {
-    while (*str)
+    while (str != NULL && *str)
     {
         if ('A' <= *str && *str <= 'Z')
             *str += ('a' - 'A');
@@ -127,9 +147,14 @@ int parse_num(char *str, int *to)
 int valid_data(data_t *data)
 {
     to_lower(data->month);
-    int valid = valid_month(data->month);
-    valid = valid && data->day > 0 && data->day <= get_days(data->month, data->year);
-    valid = valid && data->year > 0;
+    int valid = data->month != NULL && (data->month);
+    int day = 0;
+    int year = 0;
+
+    valid = valid && data->year != NULL && strlen(data->year) == YEAR_WIDTH &&
+            parse_num(data->year, &year) && year > 0;
+    valid = valid && data->day != NULL && strlen(data->day) == DAY_WIDTH &&
+            parse_num(data->day, &day) && day > 0 && day <= get_days(data->month, year);
 
     return valid;
 }
