@@ -47,20 +47,28 @@ int main(void)
     fgets(question_chars, sizeof(question_chars), stdin);
     fgets(answer_chars, sizeof(answer_chars), stdin);
 
-    split_words(question_chars, (char **)question_words, &question_size);
-    split_words(answer_chars, (char **)answer_words, &answer_size);
-
-    delete_repeat(question_words, question_size);
-    exit_code = process_words(question_words, question_size, answer_words, answer_size, result_arr);
-
-    if (exit_code == OK)
+    if (strlen(answer_chars) != 0)
     {
-        print_result(question_words, result_arr, question_size);
+        split_words(question_chars, (char **)question_words, &question_size);
+        split_words(answer_chars, (char **)answer_words, &answer_size);
+
+        delete_repeat(question_words, question_size);
+        exit_code = process_words(question_words, question_size, answer_words, answer_size, result_arr);
+
+        if (exit_code == OK)
+        {
+            print_result(question_words, result_arr, question_size);
+        }
+        else
+        {
+            exit_code = ERR_DATA;
+        }
     }
     else
     {
-        exit_code = ERR_DATA;
+        exit_code = ERR_INPUT;
     }
+    
 
     return exit_code;
 }
