@@ -63,7 +63,7 @@ int main(void)
 {
     int exit_code = OK;
     
-    char chars[CHAR_ARR_SIZE + 1] = { 0 };
+    char chars[CHAR_ARR_SIZE + 1 + 1] = { 0 };
     data_t data = { 0 };
 
     exit_code = input_str(chars, sizeof(chars));
@@ -92,7 +92,15 @@ int input_str(char *buffer, int size)
         ++i;
     }
 
-    if ((c = fgetc(stdin)) != EOF && strchr(DELIMETER, c) == NULL)
+    // c = fgetc(stdin);
+    // // if (c != EOF && strchr(DELIMETER, c) == NULL)
+    // //     rc = ERR_INPUT;
+    // printf("c: %d <%c>\n", c, c);
+    // printf("val = %d\n",  strchr(DELIMETER, c) != NULL);
+    // if (!(c == EOF || strchr(DELIMETER, c) != NULL))
+    //     rc = ERR_INPUT;
+
+    if (buffer[size - 2] != '\0')
         rc = ERR_INPUT;
 
     // printf("c: <%d>\n", c);
