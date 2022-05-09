@@ -171,7 +171,7 @@ int valid_data(data_t *data)
     valid = valid && data->year != NULL && strlen(data->year) == YEAR_WIDTH &&
         parse_num(data->year, &year) && year > 0;
     // printf("s: <%s>\n", strlen(data->day) == DAY_WIDTH);
-    valid = valid && data->day != NULL && strlen(data->day) == DAY_WIDTH &&
+    valid = valid && data->day != NULL && strlen(data->day) <= DAY_WIDTH &&
         parse_num(data->day, &day) && day > 0 && day <= get_days(data->month, year);
 
     return valid;
