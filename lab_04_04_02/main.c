@@ -11,7 +11,7 @@
 #define WORD_MAX_SIZE 16
 
 #define YEAR_WIDTH 4U
-#define DAY_WIDTH  2U
+#define DAY_WIDTH  1U
 
 #define DELIMETER " \n"
 
@@ -151,10 +151,10 @@ int valid_data(data_t *data)
     int day = 0;
     int year = 0;
 
-    valid = valid && data->year != NULL && strlen(data->year) == YEAR_WIDTH &&
-            parse_num(data->year, &year) && year > 0;
-    valid = valid && data->day != NULL && strlen(data->day) == DAY_WIDTH &&
-            parse_num(data->day, &day) && day > 0 && day <= get_days(data->month, year);
+    valid = valid && data->year != NULL && strlen(data->year) >= YEAR_WIDTH &&
+        parse_num(data->year, &year) && year > 0;
+    valid = valid && data->day != NULL && strlen(data->day) >= DAY_WIDTH &&
+        parse_num(data->day, &day) && day > 0 && day <= get_days(data->month, year);
 
     return valid;
 }
