@@ -15,7 +15,7 @@ set -f
 return_code="$?"
 set +f
 
-if [ "$return_code" -ne 0 ]; then
+if [ "$return_code" -ne 0 ] && [ -z "$(cat out.txt)" ]; then
     exit 0
 else
     exit 1
