@@ -6,7 +6,6 @@
 #define OK 0
 #define ERR_INPUT 1
 
-#define N_MIN 1
 #define N_MAX 5
 #define MAX_WORD_LEN 5
 
@@ -55,7 +54,7 @@ int input_mat(square_matrix_t *mat)
 	
 	rc = scanf("%d", &mat->size) == 1 ? OK : ERR_INPUT;
 	
-	if (rc == OK)
+	if (rc == OK && mat->size > 0 && mat->size < N_MAX)
 	{
 		rc = 1;
 		// char tmp[MAX_WORD_LEN + 1 + 1] = { 0 };
@@ -71,6 +70,10 @@ int input_mat(square_matrix_t *mat)
 			rc = ERR_INPUT;
 		else 
 			rc = OK;
+	}
+	else
+	{
+		rc = ERR_INPUT;
 	}
 	
 	
