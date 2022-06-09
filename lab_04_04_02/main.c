@@ -14,7 +14,7 @@
 #define YEAR_WIDTH 4
 #define DAY_WIDTH  2
 
-#define DELIMETER " \t\n"
+#define DELIMETER " "
 
 #define YES_STR "YES"
 #define NO_STR  "NO"
