@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include <ctype.h>
 
 #define OK        0
 #define ERR_INPUT 1
@@ -10,10 +11,10 @@
 #define WORD_ARR_SIZE CHAR_ARR_SIZE / WORD_MAX_SIZE
 #define WORD_MAX_SIZE 16
 
-#define YEAR_WIDTH 4U
-#define DAY_WIDTH  2U
+#define YEAR_WIDTH 4
+#define DAY_WIDTH  2
 
-#define DELIMETER " \n"
+#define DELIMETER " \t\n"
 
 #define YES_STR "YES"
 #define NO_STR  "NO"
@@ -39,9 +40,9 @@ typedef struct
     char *day;
     char *month;
     char  *year;
-} data_t;
+} date_t;
 
-int parse_data(char *chars, data_t *data);
+int parse_data(char *chars, date_t *data);
 
 void print_result(int is_valid);
 
@@ -49,9 +50,13 @@ void to_lower(char *str);
 
 int parse_num(char *str, int *to);
 
-int valid_data(data_t *data);
+int valid_data(date_t *data);
 
 int valid_month(char *month);
+
+int valid_day(char *day, char *month, int year);
+
+int valid_year(char *year);
 
 int get_days(char *month, int year);
 
@@ -63,8 +68,9 @@ int main(void)
 {
     int exit_code = OK;
     
-    char chars[CHAR_ARR_SIZE + 1 + 1] = { 0 };
-    data_t data = { 0 };
+    char chars[CHAR_ARR_SIZE + 1] = { 0 };
+
+    date_t data = { 0 };
 
     exit_code = input_str(chars, sizeof(chars));
     if (exit_code == OK)
@@ -92,18 +98,11 @@ int input_str(char *buffer, int size)
         ++i;
     }
 
-    // c = fgetc(stdin);
-    // // if (c != EOF && strchr(DELIMETER, c) == NULL)
-    // //     rc = ERR_INPUT;
-    // printf("c: %d <%c>\n", c, c);
-    // printf("val = %d\n",  strchr(DELIMETER, c) != NULL);
-    // if (!(c == EOF || strchr(DELIMETER, c) != NULL))
+    // if (buffer[size - 2] != '\0')
     //     rc = ERR_INPUT;
-
-    if (buffer[size - 2] != '\0')
+    if (fgetc(stdin) != EOF)
         rc = ERR_INPUT;
 
-    // printf("c: <%d>\n", c);
     return rc;
 }
 
@@ -115,7 +114,7 @@ void print_result(int is_valid)
         printf(NO_STR);
 }
 
-int parse_data(char *chars, data_t *data)
+int parse_data(char *chars, date_t *data)
 {
     int rc = OK;
     // data->day = data->year = -1;
@@ -169,30 +168,49 @@ int parse_num(char *str, int *to)
     return *end == '\0';
 }
 
-int valid_data(data_t *data)
+int valid_data(date_t *data)
 {
     to_lower(data->month);
-    int valid = data->month != NULL && (data->month);
-    int day = 0;
-    int year = 0;
+    int valid = data->month != NULL && valid_month(data->month);
 
-    valid = valid && data->year != NULL && strlen(data->year) == YEAR_WIDTH &&
-        parse_num(data->year, &year) && year > 0;
-    // printf("s: <%s>\n", strlen(data->day) == DAY_WIDTH);
-    valid = valid && data->day != NULL && strlen(data->day) <= DAY_WIDTH &&
-        parse_num(data->day, &day) && day > 0 && day <= get_days(data->month, year);
+    valid = valid && valid_year(data->year) && valid_day(data->day, data->month, atoi(data->year));
 
     return valid;
 }
+
+
+int valid_day(char *day, char *month, int year)
+{
+    int valid = day != NULL && strlen(day) <= DAY_WIDTH;
+    for (int i = 0; valid && day[i]; ++i)
+        valid = isdigit(day[i]);
+
+    valid = valid && atoi(day) <= get_days(month, year) && atoi(day) > 0;
+
+    return valid;
+}
+
+int valid_year(char *year)
+{
+    int valid = year != NULL && strlen(year) == YEAR_WIDTH;
+    for (int i = 0; valid && year[i]; ++i)
+        valid = isdigit(year[i]);
+
+    valid = valid && atoi(year) > 0;
+
+    return valid;
+}
+
+// int all_digits()
 
 int valid_month(char *month)
 {
     int valid = 0;
     char *monthes[] = MONTHES;
-    for (int i = 0; i < (int)(sizeof(monthes) / sizeof(monthes[0])) && !valid; ++i)
+    for (size_t i = 0; i < sizeof(monthes) / sizeof(monthes[0]) && !valid; ++i)
         valid = strcmp(month, monthes[i]) == 0;
 
-    return valid;    
+    return valid;
 }
 
 int get_days(char *month, int year)
