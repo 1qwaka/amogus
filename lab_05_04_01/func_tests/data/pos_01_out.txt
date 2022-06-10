@@ -1,0 +1,12 @@
+andrey
+bell
+4 5 5 4 
+andrey
+vickhodsev
+5 5 5 4 
+dmitriy
+popov
+2 4 3 3 
+sergey
+vickhodsev
+5 5 5 5 
