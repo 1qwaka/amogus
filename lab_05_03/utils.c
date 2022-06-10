@@ -7,7 +7,7 @@
 
 int fill_random_numbers(FILE *f, int amount)
 {
-    int rc = true;
+    int rc = 1;
     num_t tmp = 0;
 
     srand(time(NULL));
@@ -28,10 +28,11 @@ int fill_random_numbers(FILE *f, int amount)
 int print_nums(FILE *f)
 {
     int rc = OK;
+    num_t tmp = 0;
     
-    if (is_typed_file(f))
+    long size_bytes = size_of_file(f);
+    if (size_bytes != 0 && size_bytes % sizeof(num_t) == 0)
     {
-        num_t tmp = 0;
         while (fread(&tmp, sizeof(tmp), 1, f) == 1)
             printf("%d ", tmp);
     
@@ -48,14 +49,14 @@ int print_nums(FILE *f)
 
 int sort_file(FILE *f)
 {
-    int rc = true;
-    
-    if (is_typed_file(f))
-    {
-        long size = size_of_file(f) / sizeof(num_t);
+    int rc = OK;
+    long size_bytes = size_of_file(f);
 
-        for (int i = 0; rc && i < size; i++)
-            for (int j = 0; rc && j < size - i - 1; j++)
+    if (size_bytes != 0 && size_bytes % sizeof(num_t) == 0)
+    {
+        long size = size_bytes / sizeof(num_t);
+        for (int i = 0; i < size; i++)
+            for (int j = 0; j < size - i - 1; j++)
             {
                 num_t cur = get_number_by_pos(f, j);
                 num_t next = get_number_by_pos(f, j + 1);
@@ -65,7 +66,6 @@ int sort_file(FILE *f)
                     put_number_by_pos(f, j + 1, cur);
                 }
             }    
-
     }
     else
     {
@@ -91,7 +91,6 @@ int put_number_by_pos(FILE *f, int pos, num_t number)
     return rc;
 }
 
-// размер в байтах
 long size_of_file(FILE *f)
 {
     long current = ftell(f);
@@ -99,11 +98,4 @@ long size_of_file(FILE *f)
     long size = ftell(f);
     fseek(f, current, SEEK_SET);
     return size;
-}
-
-// проверяет является ли файл массивом чисел, так называемый "типизированный файл"
-bool is_typed_file(FILE *f)
-{
-    long size_bytes = size_of_file(f);    
-    return size_bytes != 0 && size_bytes % sizeof(num_t) == 0;
 }

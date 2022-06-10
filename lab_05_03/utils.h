@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include <inttypes.h>
-#include <stdbool.h>
 
 #define OK        0
 #define ERR_IO    1
@@ -20,5 +19,3 @@ num_t get_number_by_pos(FILE *f, int pos);
 int put_number_by_pos(FILE *f, int pos, num_t number);
 
 long size_of_file(FILE *f);
-
-bool is_typed_file(FILE *f);
