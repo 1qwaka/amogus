@@ -18,7 +18,7 @@ int process(FILE *f, int *result)
         if (!found_negative && tmp < 0)
             found_negative = true;
         
-        if (found_negative && tmp > 0 && tmp > max)
+        if (found_negative && tmp >= 0 && tmp > max)
         {
             max = tmp;
             found_any_max = true;
