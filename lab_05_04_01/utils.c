@@ -186,18 +186,14 @@ int delete_students(FILE *f)
                 rc = delete_student_by_pos(f, i);
                 deleted++;
                 i--;
-                // printf("delete student: \n<");
-                // print_student(tmp);
-                // printf(">\n");
             }
         }
 
-        // printf("size: %d\ndeleted: %d\nrc: %d", size, deleted, rc);
         ftruncate(fileno(f), (size - deleted) * sizeof(student_t));
 
         // ?????
-        // if (size - deleted == 0)
-        //     rc = ERR_DATA
+        if (size - deleted == 0)
+            rc = ERR_DATA
     }
     else
     {
