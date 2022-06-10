@@ -7,29 +7,32 @@ int process(FILE *f, int *result)
 {
     int rc = OK;
     int tmp = 0;
-    bool found_negative = false;
+    // bool found_negative = false;
     bool found_any_max = false;
-    int max = 0;
+    int max = -1;
+    int prev_num = 0;
 
-    rc = fscanf(f, "%d", &max) == 1 ? OK : ERR_INPUT;
-    
-    while (rc == OK && fscanf(f, "%d", &tmp) == 1)
+    if (fscanf(f, "%d", &prev_num) == 1)
     {
-        if (!found_negative && tmp < 0)
-            found_negative = true;
-        
-        if (found_negative && tmp >= 0 && tmp > max)
+        while (fscanf(f, "%d", &tmp) == 1)
         {
-            max = tmp;
-            found_any_max = true;
+            if (prev_num < 0 && tmp > 0 && tmp > max)
+            {
+                max = tmp;
+                found_any_max = true;
+            }
+            prev_num = tmp;
         }
-    }
 
-    if (rc == OK && !found_any_max)
-        rc = ERR_DATA;
-    else if (rc == OK)
-        *result = max;
-    
+        if (!found_any_max)
+            rc = ERR_DATA;
+        else
+            *result = max;
+    }
+    else
+    {
+        rc = ERR_INPUT;
+    }
 
     return rc;
 }
