@@ -30,7 +30,8 @@ int print_nums(FILE *f)
     int rc = OK;
     num_t tmp = 0;
     
-    if (size_of_file(f) % sizeof(num_t) == 0)
+    long size_bytes = size_of_file(f);
+    if (size_bytes != 0 && size_bytes % sizeof(num_t) == 0)
     {
         while (fread(&tmp, sizeof(tmp), 1, f) == 1)
             printf("%d ", tmp);
