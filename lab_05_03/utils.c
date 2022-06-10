@@ -17,10 +17,10 @@ int fill_random_numbers(FILE *f, int amount)
         rc = fwrite(&tmp, sizeof(tmp), 1, f) == 1;
     }
     
-    if (ferror(f))
-        rc = ERR_IO;
-    else
+    if (!rc)
         rc = OK;
+    else
+        rc = ERR_IO;
     
     return rc;
 }
@@ -57,11 +57,15 @@ int sort_file(FILE *f)
         for (int i = 0; rc && i < size; i++)
             for (int j = 0; rc && j < size - i - 1; j++)
             {
-                num_t cur = 0, next = 0;
-                rc = get_number_by_pos(f, j, &cur) && get_number_by_pos(f, j + 1, &next);
-                if (rc && cur > next)
-                    rc = put_number_by_pos(f, j, next) && put_number_by_pos(f, j + 1, cur);
-            }
+                num_t cur = get_number_by_pos(f, j);
+                num_t next = get_number_by_pos(f, j + 1);
+                if (cur > next)
+                {
+                    put_number_by_pos(f, j, next);
+                    put_number_by_pos(f, j + 1, cur);
+                }
+            }    
+
     }
     else
     {
@@ -72,16 +76,19 @@ int sort_file(FILE *f)
     return rc;
 }
 
-bool get_number_by_pos(FILE *f, int pos, num_t *number)
+num_t get_number_by_pos(FILE *f, int pos)
 {
-    fseek(f, sizeof(num_t) * pos, SEEK_SET);
-    return fread(number, sizeof(num_t), 1, f) == 1;
+    num_t result = 0;
+    fseek(f, sizeof(result) * pos, SEEK_SET);
+    fread(&result, sizeof(result), 1, f);
+    return result;
 }
 
-bool put_number_by_pos(FILE *f, int pos, num_t number)
+int put_number_by_pos(FILE *f, int pos, num_t number)
 {
     fseek(f, sizeof(number) * pos, SEEK_SET);
-    return fwrite(&number, sizeof(number), 1, f) == 1;
+    int rc = fwrite(&number, sizeof(number), 1, f) == 1 ? OK : ERR_IO;
+    return rc;
 }
 
 // размер в байтах

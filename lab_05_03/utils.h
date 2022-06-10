@@ -15,9 +15,9 @@ int print_nums(FILE *f);
 
 int sort_file(FILE *f);
 
-bool get_number_by_pos(FILE *f, int pos, num_t *number);
+num_t get_number_by_pos(FILE *f, int pos);
 
-bool put_number_by_pos(FILE *f, int pos, num_t number);
+int put_number_by_pos(FILE *f, int pos, num_t number);
 
 long size_of_file(FILE *f);
 
