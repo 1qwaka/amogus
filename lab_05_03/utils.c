@@ -30,8 +30,7 @@ int print_nums(FILE *f)
     int rc = OK;
     num_t tmp = 0;
     
-    long size_bytes = size_of_file(f);
-    if (size_bytes != 0 && size_bytes % sizeof(num_t) == 0)
+    if (is_typed_file(f))
     {
         while (fread(&tmp, sizeof(tmp), 1, f) == 1)
             printf("%d ", tmp);
@@ -50,11 +49,10 @@ int print_nums(FILE *f)
 int sort_file(FILE *f)
 {
     int rc = OK;
-    long size_bytes = size_of_file(f);
-
-    if (size_bytes != 0 && size_bytes % sizeof(num_t) == 0)
+    
+    if (is_typed_file(f))
     {
-        long size = size_bytes / sizeof(num_t);
+        long size = size_of_file(f) / sizeof(num_t);
         for (int i = 0; i < size; i++)
             for (int j = 0; j < size - i - 1; j++)
             {
@@ -98,4 +96,11 @@ long size_of_file(FILE *f)
     long size = ftell(f);
     fseek(f, current, SEEK_SET);
     return size;
+}
+
+// является ли файл массивом чисел, так называемый "типизированный файл"
+int is_typed_file(FILE *f)
+{
+    long size_bytes = size_of_file(f);
+    return size_bytes != 0 && size_bytes % sizeof(num_t) == 0;
 }
