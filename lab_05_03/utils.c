@@ -7,7 +7,7 @@
 
 int fill_random_numbers(FILE *f, int amount)
 {
-    int rc = 1;
+    int rc = true;
     num_t tmp = 0;
 
     srand(time(NULL));

@@ -25,7 +25,7 @@ int main(int argc, char *argv[])
         FILE *f = fopen(argv[2], "rb+");
         if (f != NULL)
         {
-            print_nums(f);
+            exit_code = print_nums(f);
             fclose(f);
         }
         else
