@@ -193,7 +193,7 @@ int delete_students(FILE *f)
 
         // ?????
         if (size - deleted == 0)
-            rc = ERR_DATA
+            rc = ERR_DATA;
     }
     else
     {
