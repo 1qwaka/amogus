@@ -10,12 +10,19 @@ static int calc_variance(FILE *f, float average, int amount, float *result)
     
     if (fscanf(f, "%f", &tmp) == 1)
     {
+        // printf("tmp=%f\n", tmp);
         float variance = (tmp - average) * (tmp - average);
 
         while (fscanf(f, "%f", &tmp) == 1)
+        {
+            // printf("scanned tmp=%f\n", tmp);
             variance += (tmp - average) * (tmp - average);
+        }
+        // printf("amount=%d\n", amount);
+        // printf("variance=%f\n", variance);
+        variance = variance / amount;
+        // printf("variance=%f\n", variance);
 
-        variance /= amount;
         *result = variance;
     }
     else
@@ -54,11 +61,14 @@ int correct_3sigma_rule(FILE *f, int *result)
 
         float average = sum / amount;
         float variance = 0;
+        rewind(f);
         rc = calc_variance(f, average, amount, &variance);
+        // printf("variance=%f\n", variance);
+        // // printf("rc=%d\n", rc);
         if (rc == OK)
         {
             float sigma = sqrtf(variance);
-            *result = average - 3 * sigma < min && average + 3 * sigma > max;
+            *result = (average - 3 * sigma < min) && (average + 3 * sigma > max);
         }
     }
     else
