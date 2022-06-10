@@ -106,7 +106,6 @@ int print_appropriate_students(FILE *src, FILE *dst, const char *sub_surname)
                 pos++;
             }
         }
-
         // ??????
         if (pos == 0)
             rc = ERR_DATA;
@@ -136,7 +135,6 @@ int delete_student_by_pos(FILE *f, int pos)
 
 double average_grade(student_t student)
 {
-
     double average = 0;
 
     if (SUBJECTS_AMOUNT != 0)
@@ -192,8 +190,8 @@ int delete_students(FILE *f)
         ftruncate(fileno(f), (size - deleted) * sizeof(student_t));
 
         // ?????
-        if (size - deleted == 0)
-            rc = ERR_DATA;
+        // if (size - deleted == 0)
+        //     rc = ERR_DATA;
     }
     else
     {
