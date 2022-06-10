@@ -23,4 +23,6 @@ int put_number_by_pos(FILE *f, int pos, num_t number);
 
 long size_of_file(FILE *f);
 
+int is_typed_file(FILE *f);
+
 #endif
