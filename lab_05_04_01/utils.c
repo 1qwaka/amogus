@@ -106,7 +106,7 @@ int print_appropriate_students(FILE *src, FILE *dst, const char *sub_surname)
                 pos++;
             }
         }
-        // ??????
+
         if (pos == 0)
             rc = ERR_DATA;
     }
