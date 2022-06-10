@@ -17,8 +17,8 @@ int print_students(FILE *f)
         while (fread(&tmp, sizeof(tmp), 1, f) == 1)
             print_student(tmp);
     
-        if (ferror(f))
-            rc = ERR_IO;
+        // if (ferror(f))
+        //     rc = ERR_IO;
     }
     else
     {
