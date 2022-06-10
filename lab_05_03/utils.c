@@ -30,11 +30,18 @@ int print_nums(FILE *f)
     int rc = OK;
     num_t tmp = 0;
     
-    while (fread(&tmp, sizeof(tmp), 1, f) == 1)
-        printf("%d ", tmp);
+    if (size_of_file(f) % sizeof(num_t) == 0)
+    {
+        while (fread(&tmp, sizeof(tmp), 1, f) == 1)
+            printf("%d ", tmp);
     
-    if (ferror(f))
-        rc = ERR_IO;
+        if (ferror(f))
+            rc = ERR_IO;
+    }
+    else
+    {
+        rc = ERR_DATA;
+    }
     
     return rc;
 }
