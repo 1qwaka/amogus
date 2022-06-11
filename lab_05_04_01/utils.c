@@ -43,8 +43,8 @@ int sort_file(FILE *f)
     if (is_typed_file(f))
     {
         long size = size_of_file(f) / sizeof(student_t);
-        for (int i = 0; i < size; i++)
-            for (int j = 0; j < size - i - 1; j++)
+        for (int i = 0; rc == OK && i < size; i++)
+            for (int j = 0; rc == OK && j < size - i - 1; j++)
             {
                 student_t cur = get_student_by_pos(f, j);
                 student_t next = get_student_by_pos(f, j + 1);
@@ -66,9 +66,9 @@ int sort_file(FILE *f)
 // 1 если объект big "больше" объекта small, иначе 0 
 int compare(student_t small, student_t big)
 {
-    int result = strcmp(big.name, small.name) > 0;
+    int result = strcmp(big.surname, small.surname) > 0;
     if (result == 0)
-        result = strcmp(big.surname, small.surname) > 0;
+        result = strcmp(big.name, small.name) > 0;
 
     return result;
 }
