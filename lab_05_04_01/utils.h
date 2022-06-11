@@ -9,6 +9,8 @@
 #define ERR_DATA    2
 #define ERR_ARGS    53
 #define ERR_NO_FILE 4
+#define ERR_GET_STUDENT 5
+#define ERR_PUT_STUDENT 6
 
 #define NAME_LENGTH     25
 #define SURNAME_LENGTH  10

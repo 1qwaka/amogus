@@ -9,13 +9,22 @@
 int print_students(FILE *f)
 {
     int rc = OK;
-    student_t tmp = { 0 };
     
     if (is_typed_file(f))
     {
+        long size = size_of_file(f) / sizeof(student_t);
         fseek(f, 0, SEEK_SET);
-        while (fread(&tmp, sizeof(tmp), 1, f) == 1)
-            print_student(tmp);
+        // while (fread(&tmp, sizeof(tmp), 1, f) == 1)
+            // print_student(tmp);
+        
+        student_t tmp = { 0 };
+        for (int i = 0; rc == OK && i < size; i++)
+        {
+            rc = get_student_by_pos(f, i, &tmp);
+            if (rc == OK)
+                print_student(tmp);
+        }
+        
     
         // if (ferror(f))
         //     rc = ERR_IO;
@@ -80,13 +89,13 @@ int compare(student_t small, student_t big)
 int get_student_by_pos(FILE *f, int pos, student_t *student)
 {
     fseek(f, sizeof(student_t) * pos, SEEK_SET);
-    return fread(student, sizeof(student_t), 1, f) == 1 ? OK : ERR_IO;
+    return fread(student, sizeof(student_t), 1, f) == 1 ? OK : ERR_GET_STUDENT;
 }
 
 int put_student_by_pos(FILE *f, int pos, student_t student)
 {
     fseek(f, sizeof(student) * pos, SEEK_SET);
-    int rc = fwrite(&student, sizeof(student), 1, f) == 1 ? OK : ERR_IO;
+    int rc = fwrite(&student, sizeof(student), 1, f) == 1 ? OK : ERR_PUT_STUDENT;
     return rc;
 }
 
