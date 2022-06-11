@@ -4,13 +4,14 @@
 #include <stdio.h>
 #include <inttypes.h>
 
-#define OK          0
-#define ERR_IO      1
-#define ERR_DATA    2
-#define ERR_ARGS    53
-#define ERR_NO_FILE 4
+#define OK              0
+#define ERR_IO          1
+#define ERR_DATA        2
+#define ERR_ARGS        53
+#define ERR_NO_FILE     4
 #define ERR_GET_STUDENT 5
 #define ERR_PUT_STUDENT 6
+#define ERR_TRUNCATE    7
 
 #define NAME_LENGTH     10
 #define SURNAME_LENGTH  25
@@ -39,7 +40,7 @@ int delete_student_by_pos(FILE *f, int pos);
 
 double average_grade(student_t student);
 
-double count_average_grade(FILE *f);
+int count_average_grade(FILE *f, double *result);
 
 int print_appropriate_students(FILE *src, FILE *dst, const char *sub_surname);
 

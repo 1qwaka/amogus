@@ -161,23 +161,25 @@ double average_grade(student_t student)
     return average;
 }
 
-double count_average_grade(FILE *f)
+int count_average_grade(FILE *f, double *result)
 {
+    int rc = OK;
     int size = size_of_file(f) / sizeof(student_t);
     double average = 0;
 
     if (size != 0)
     {
-        for (int i = 0; i < size; i++)
+        for (int i = 0; rc == OK && i < size; i++)
         {
             student_t tmp = { 0 };
-            get_student_by_pos(f, i, &tmp);
+            rc = get_student_by_pos(f, i, &tmp);
             average += average_grade(tmp);
         }
         average /= size;
     }
     
-    return average;
+    *result = average;
+    return rc;
 }
 
 int delete_students(FILE *f)
@@ -186,8 +188,8 @@ int delete_students(FILE *f)
 
     if (is_typed_file(f))
     {
-        /////
-        double average_average_grade = count_average_grade(f);
+        double average_average_grade = 0;
+        rc = count_average_grade(f, &average_average_grade);
         ////
         int size = size_of_file(f) / sizeof(student_t);
         int deleted = 0;
@@ -209,7 +211,8 @@ int delete_students(FILE *f)
         }
 
         ////
-        ftruncate(fileno(f), (size - deleted) * sizeof(student_t));
+        if (rc == OK)
+            rc = ftruncate(fileno(f), (size - deleted) * sizeof(student_t)) == 0 ? OK : ERR_TRUNCATE;
 
         // ?????
         // if (size - deleted == 0)
