@@ -14,8 +14,6 @@ int print_students(FILE *f)
     {
         long size = size_of_file(f) / sizeof(student_t);
         fseek(f, 0, SEEK_SET);
-        // while (fread(&tmp, sizeof(tmp), 1, f) == 1)
-            // print_student(tmp);
         
         student_t tmp = { 0 };
         for (int i = 0; rc == OK && i < size; i++)
@@ -24,8 +22,6 @@ int print_students(FILE *f)
             if (rc == OK)
                 print_student(tmp);
         }
-        // if (ferror(f))
-        //     rc = ERR_IO;
     }
     else
     {
@@ -55,7 +51,6 @@ int sort_file(FILE *f)
                     rc = put_student_by_pos(f, j, next);
                     if (rc == OK)
                         put_student_by_pos(f, j + 1, cur);
-                    // printf("swapped pos1=%d pos2=%d \n1. %s %s\n2. %s %s\n", j, j + 1, cur.surname, cur.name, next.surname, next.name);
                 }
             }    
     }
@@ -160,9 +155,6 @@ int delete_students(FILE *f)
         int size = size_of_file(f) / sizeof(student_t);
         int deleted = 0;
 
-        // printf("avg file: %lf\n", average_average_grade);
-        // printf("students amount: %d\n", size);
-
         for (int i = 0; rc == OK && i < size - deleted; i++)
         {
             student_t tmp = { 0 };
@@ -171,7 +163,6 @@ int delete_students(FILE *f)
             if (rc == OK && average_grade(tmp) < average_average_grade)
             {
                 rc = delete_student_by_pos(f, i);
-                // printf("delete: '%s %s' avg grade: %lf\n", tmp.surname, tmp.name, average_grade(tmp));
                 if (rc == OK)
                 {
                     deleted++;
@@ -183,16 +174,6 @@ int delete_students(FILE *f)
         rewind(f);
         if (rc == OK)
             rc = ftruncate(fileno(f), (size - deleted) * sizeof(student_t)) == 0 ? OK : ERR_TRUNCATE;
-
-        // printf("total deleted: %d\nfile truncated from %d (%zu bytes) to %d (%zu bytes)\n", deleted, size,
-                                                                                        // size * sizeof(student_t),
-                                                                                        // size - deleted,
-                                                                                        // (size - deleted) * sizeof(student_t));
-        // printf("rc: %d\nfile length bytes: %ld\n", rc, size_of_file(f));
-        // print_students(f);
-        // ?????
-        // if (size - deleted == 0)
-        //     rc = ERR_DATA;
     }
     else
     {

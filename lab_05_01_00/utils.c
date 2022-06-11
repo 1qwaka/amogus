@@ -7,7 +7,6 @@ int process(FILE *f, int *result)
 {
     int rc = OK;
     int tmp = 0;
-    // bool found_negative = false;
     bool found_any_max = false;
     int max = -1;
     int prev_num = 0;
