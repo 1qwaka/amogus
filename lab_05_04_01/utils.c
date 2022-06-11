@@ -24,7 +24,6 @@ int print_students(FILE *f)
             if (rc == OK)
                 print_student(tmp);
         }
-        
     
         // if (ferror(f))
         //     rc = ERR_IO;

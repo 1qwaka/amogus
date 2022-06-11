@@ -18,8 +18,8 @@
 
 typedef struct 
 {
-    char name[NAME_LENGTH + 1];
     char surname[SURNAME_LENGTH + 1];
+    char name[NAME_LENGTH + 1];
     uint32_t grades[SUBJECTS_AMOUNT];
 } student_t;
 
