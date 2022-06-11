@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-#include "utils.h"
+#include "student_utils.h"
 
 int main(int argc, char *argv[])
 {
@@ -44,7 +44,6 @@ int main(int argc, char *argv[])
     } 
     else if (argc == 5 && strcmp("fb", argv[1]) == 0)
     {
-        // return 53;
         FILE *src = fopen(argv[2], "rb");
         FILE *dst = fopen(argv[3], "wb");
 
@@ -66,8 +65,6 @@ int main(int argc, char *argv[])
     } 
     else if (argc == 3 && strcmp("db", argv[1]) == 0)
     {
-        // return 53;
-
         FILE *f = fopen(argv[2], "rb+");
         if (f != NULL)
         {

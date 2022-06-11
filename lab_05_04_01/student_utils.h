@@ -3,6 +3,7 @@
 
 #include <stdio.h>
 #include <inttypes.h>
+#include "student.h"
 
 #define OK              0
 #define ERR_IO          1
@@ -13,32 +14,15 @@
 #define ERR_PUT_STUDENT 6
 #define ERR_TRUNCATE    7
 
-#define NAME_LENGTH     10
-#define SURNAME_LENGTH  25
-#define SUBJECTS_AMOUNT 4
-
-typedef struct 
-{
-    char surname[SURNAME_LENGTH + 1];
-    char name[NAME_LENGTH + 1];
-    uint32_t grades[SUBJECTS_AMOUNT];
-} student_t;
-
 int print_students(FILE *f);
 
 int sort_file(FILE *f);
-
-int compare(student_t small, student_t big);
-
-void print_student(student_t student);
 
 int get_student_by_pos(FILE *f, int pos, student_t *student);
 
 int put_student_by_pos(FILE *f, int pos, student_t student);
 
 int delete_student_by_pos(FILE *f, int pos);
-
-double average_grade(student_t student);
 
 int count_average_grade(FILE *f, double *result);
 
@@ -50,4 +34,4 @@ long size_of_file(FILE *f);
 
 int is_typed_file(FILE *f);
 
-#endif
+#endif  // _UTILS_H_

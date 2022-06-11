@@ -3,7 +3,7 @@
 #include <inttypes.h>
 #include <string.h>
 #include <unistd.h>
-#include "utils.h"
+#include "student_utils.h"
 
 
 int print_students(FILE *f)
@@ -33,14 +33,6 @@ int print_students(FILE *f)
     }
     
     return rc;
-}
-
-void print_student(student_t student)
-{
-    printf("%s\n%s\n", student.surname, student.name);
-    for (int i = 0; i < SUBJECTS_AMOUNT; i++)
-        printf("%u\n", student.grades[i]);
-    // printf("\n");    
 }
 
 int sort_file(FILE *f)
@@ -73,17 +65,6 @@ int sort_file(FILE *f)
     }
    
     return rc;
-}
-
-// 1 если объект big "больше" объекта small, иначе 0 
-int compare(student_t small, student_t big)
-{
-    int result = strcmp(big.surname, small.surname);
-    // printf("surnamre %s bigger %s: %d\n", big.surname, small.surname, result);
-    if (result == 0)
-        result = strcmp(big.name, small.name);
-
-    return result > 0;
 }
 
 int get_student_by_pos(FILE *f, int pos, student_t *student)
@@ -145,21 +126,6 @@ int delete_student_by_pos(FILE *f, int pos)
     }
 
     return rc;
-}
-
-double average_grade(student_t student)
-{
-    double average = 0;
-
-    if (SUBJECTS_AMOUNT != 0)
-    {
-        for (int i = 0; i < SUBJECTS_AMOUNT; i++)
-            average += student.grades[i];
-        
-        average /= SUBJECTS_AMOUNT;
-    }
-
-    return average;
 }
 
 int count_average_grade(FILE *f, double *result)
