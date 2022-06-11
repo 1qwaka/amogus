@@ -186,22 +186,29 @@ int delete_students(FILE *f)
 
     if (is_typed_file(f))
     {
+        /////
         double average_average_grade = count_average_grade(f);
+        ////
         int size = size_of_file(f) / sizeof(student_t);
         int deleted = 0;
 
         for (int i = 0; rc == OK && i < size - deleted; i++)
         {
             student_t tmp = { 0 };
-            get_student_by_pos(f, i, &tmp);
-            if (average_grade(tmp) < average_average_grade)
+            rc = get_student_by_pos(f, i, &tmp);
+
+            if (rc == OK && average_grade(tmp) < average_average_grade)
             {
                 rc = delete_student_by_pos(f, i);
-                deleted++;
-                i--;
+                if (rc == OK)
+                {
+                    deleted++;
+                    i--;
+                }
             }
         }
 
+        ////
         ftruncate(fileno(f), (size - deleted) * sizeof(student_t));
 
         // ?????
