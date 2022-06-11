@@ -30,10 +30,10 @@ int print_students(FILE *f)
 
 void print_student(student_t student)
 {
-    printf("%s\n%s\n", student.name, student.surname);
+    printf("%s\n%s\n", student.surname, student.name);
     for (int i = 0; i < SUBJECTS_AMOUNT; i++)
-        printf("%u ", student.grades[i]);
-    printf("\n");    
+        printf("%u\n", student.grades[i]);
+    // printf("\n");    
 }
 
 int sort_file(FILE *f)
