@@ -136,11 +136,12 @@ int delete_student_by_pos(FILE *f, int pos)
     int rc = OK;
     int size = size_of_file(f) / sizeof(student_t);
 
+    student_t tmp = { 0 };
     for (int i = pos + 1; rc == OK && i < size; i++)
     {
-        student_t tmp = { 0 };
-        get_student_by_pos(f, i, &tmp);
-        rc = put_student_by_pos(f, i - 1, tmp);
+        rc = get_student_by_pos(f, i, &tmp);
+        if (rc == OK)
+            rc = put_student_by_pos(f, i - 1, tmp);
     }
 
     return rc;
@@ -190,9 +191,11 @@ int delete_students(FILE *f)
     {
         double average_average_grade = 0;
         rc = count_average_grade(f, &average_average_grade);
-        ////
         int size = size_of_file(f) / sizeof(student_t);
         int deleted = 0;
+
+        // printf("avg file: %lf\n", average_average_grade);
+        // printf("students amount: %d\n", size);
 
         for (int i = 0; rc == OK && i < size - deleted; i++)
         {
@@ -202,6 +205,7 @@ int delete_students(FILE *f)
             if (rc == OK && average_grade(tmp) < average_average_grade)
             {
                 rc = delete_student_by_pos(f, i);
+                // printf("delete: '%s %s' avg grade: %lf\n", tmp.surname, tmp.name, average_grade(tmp));
                 if (rc == OK)
                 {
                     deleted++;
@@ -210,10 +214,16 @@ int delete_students(FILE *f)
             }
         }
 
-        ////
+        rewind(f);
         if (rc == OK)
             rc = ftruncate(fileno(f), (size - deleted) * sizeof(student_t)) == 0 ? OK : ERR_TRUNCATE;
 
+        // printf("total deleted: %d\nfile truncated from %d (%zu bytes) to %d (%zu bytes)\n", deleted, size,
+                                                                                        // size * sizeof(student_t),
+                                                                                        // size - deleted,
+                                                                                        // (size - deleted) * sizeof(student_t));
+        // printf("rc: %d\nfile length bytes: %ld\n", rc, size_of_file(f));
+        // print_students(f);
         // ?????
         // if (size - deleted == 0)
         //     rc = ERR_DATA;
