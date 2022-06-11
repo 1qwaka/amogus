@@ -66,7 +66,7 @@ int main(int argc, char *argv[])
     } 
     else if (argc == 3 && strcmp("db", argv[1]) == 0)
     {
-        // return 53;
+        return 53;
 
         FILE *f = fopen(argv[2], "rb+");
         if (f != NULL)
