@@ -29,7 +29,7 @@ int compare(student_t small, student_t big);
 
 void print_student(student_t student);
 
-student_t get_student_by_pos(FILE *f, int pos);
+int get_student_by_pos(FILE *f, int pos, student_t *student);
 
 int put_student_by_pos(FILE *f, int pos, student_t student);
 

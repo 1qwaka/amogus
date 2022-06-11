@@ -46,12 +46,16 @@ int sort_file(FILE *f)
         for (int i = 0; rc == OK && i < size; i++)
             for (int j = 0; rc == OK && j < size - i - 1; j++)
             {
-                student_t cur = get_student_by_pos(f, j);
-                student_t next = get_student_by_pos(f, j + 1);
-                if (compare(next, cur))
+                student_t cur = { 0 }, next = { 0 };
+                rc = get_student_by_pos(f, j, &cur);
+                if (rc == OK)
+                    rc = get_student_by_pos(f, j + 1, &next);
+
+                if (rc == OK && compare(next, cur))
                 {
-                    put_student_by_pos(f, j, next);
-                    put_student_by_pos(f, j + 1, cur);
+                    rc = put_student_by_pos(f, j, next);
+                    if (rc == OK)
+                        put_student_by_pos(f, j + 1, cur);
                 }
             }    
     }
@@ -73,12 +77,10 @@ int compare(student_t small, student_t big)
     return result;
 }
 
-student_t get_student_by_pos(FILE *f, int pos)
+int get_student_by_pos(FILE *f, int pos, student_t *student)
 {
-    student_t result = { 0 };
-    fseek(f, sizeof(result) * pos, SEEK_SET);
-    fread(&result, sizeof(result), 1, f);
-    return result;
+    fseek(f, sizeof(student_t) * pos, SEEK_SET);
+    return fread(student, sizeof(student_t), 1, f) == 1 ? OK : ERR_IO;
 }
 
 int put_student_by_pos(FILE *f, int pos, student_t student)
@@ -99,7 +101,8 @@ int print_appropriate_students(FILE *src, FILE *dst, const char *sub_surname)
 
         for (int i = 0; i < size; i++)
         {
-            student_t tmp = get_student_by_pos(src, i);
+            student_t tmp = { 0 };
+            get_student_by_pos(src, i, &tmp);
             if (strstr(tmp.surname, sub_surname) == tmp.surname)
             {
                 put_student_by_pos(dst, pos, tmp);
@@ -126,7 +129,8 @@ int delete_student_by_pos(FILE *f, int pos)
 
     for (int i = pos + 1; rc == OK && i < size; i++)
     {
-        student_t tmp = get_student_by_pos(f, i);
+        student_t tmp = { 0 };
+        get_student_by_pos(f, i, &tmp);
         rc = put_student_by_pos(f, i - 1, tmp);
     }
 
@@ -157,7 +161,8 @@ double count_average_grade(FILE *f)
     {
         for (int i = 0; i < size; i++)
         {
-            student_t tmp = get_student_by_pos(f, i);
+            student_t tmp = { 0 };
+            get_student_by_pos(f, i, &tmp);
             average += average_grade(tmp);
         }
         average /= size;
@@ -178,7 +183,8 @@ int delete_students(FILE *f)
 
         for (int i = 0; rc == OK && i < size - deleted; i++)
         {
-            student_t tmp = get_student_by_pos(f, i);
+            student_t tmp = { 0 };
+            get_student_by_pos(f, i, &tmp);
             if (average_grade(tmp) < average_average_grade)
             {
                 rc = delete_student_by_pos(f, i);
