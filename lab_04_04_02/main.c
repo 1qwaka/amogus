@@ -14,7 +14,7 @@
 #define YEAR_WIDTH 4
 #define DAY_WIDTH  2
 
-#define DELIMETER " "
+#define DELIMETER " \t\n"
 
 #define YES_STR "YES"
 #define NO_STR  "NO"
@@ -98,8 +98,6 @@ int input_str(char *buffer, int size)
         ++i;
     }
 
-    // if (buffer[size - 2] != '\0')
-    //     rc = ERR_INPUT;
     if (fgetc(stdin) != EOF)
         rc = ERR_INPUT;
 
@@ -117,36 +115,13 @@ void print_result(int is_valid)
 int parse_data(char *chars, date_t *data)
 {
     int rc = OK;
-    // data->day = data->year = -1;
     char *day_str = strtok(chars, DELIMETER);
-    char *month_str = strtok(NULL, DELIMETER);
-    char *year_str = strtok(NULL, DELIMETER);
-    // char *additional = strtok(NULL, DELIMETER);
+    char *month_str = strtok(NULL, " ");
+    char *year_str = strtok(NULL, " ");
 
-    // if (day_str != NULL && month_str != NULL && year_str != NULL)
-    // {
     data->day = day_str;
     data->month = month_str;
     data->year = year_str;
-        // if (strlen(day_str) <= 2 && strlen(year_str) <= 4)
-        // {
-        // rc = parse_num(day_str, &data->day) && parse_num(year_str, &data->year) ? OK : ERR_DATA;
-
-        // }
-        
-    // }
-    // else
-    // {
-    //     // data->valid = 0;
-    //     rc = ERR_INPUT;
-    // }
-
-
-
-    // if (rc == OK)
-    //     data->valid = 1;
-    // else
-    //     data->valid = 0;
 
     return rc;
 }
