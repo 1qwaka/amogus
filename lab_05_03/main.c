@@ -9,6 +9,9 @@
 #include <string.h>
 #include <stdlib.h>
 #include "utils.h"
+#include "print.h"
+#include "sort.h"
+#include "fill_random.h"
 
 int main(int argc, char *argv[])
 {

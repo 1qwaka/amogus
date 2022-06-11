@@ -11,12 +11,6 @@
 
 typedef int32_t num_t;
 
-int fill_random_numbers(FILE *f, int amount);
-
-int print_nums(FILE *f);
-
-int sort_file(FILE *f);
-
 num_t get_number_by_pos(FILE *f, int pos);
 
 int put_number_by_pos(FILE *f, int pos, num_t number);
@@ -25,4 +19,4 @@ long size_of_file(FILE *f);
 
 int is_typed_file(FILE *f);
 
-#endif
+#endif  // _UTILS_H_
