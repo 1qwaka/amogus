@@ -63,6 +63,7 @@ int sort_file(FILE *f)
                     rc = put_student_by_pos(f, j, next);
                     if (rc == OK)
                         put_student_by_pos(f, j + 1, cur);
+                    // printf("swapped pos1=%d pos2=%d \n1. %s %s\n2. %s %s\n", j, j + 1, cur.surname, cur.name, next.surname, next.name);
                 }
             }    
     }
@@ -77,11 +78,12 @@ int sort_file(FILE *f)
 // 1 если объект big "больше" объекта small, иначе 0 
 int compare(student_t small, student_t big)
 {
-    int result = strcmp(big.surname, small.surname) > 0;
+    int result = strcmp(big.surname, small.surname);
+    // printf("surnamre %s bigger %s: %d\n", big.surname, small.surname, result);
     if (result == 0)
-        result = strcmp(big.name, small.name) > 0;
+        result = strcmp(big.name, small.name);
 
-    return result;
+    return result > 0;
 }
 
 int get_student_by_pos(FILE *f, int pos, student_t *student)
