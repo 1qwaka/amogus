@@ -12,8 +12,8 @@
 #define ERR_GET_STUDENT 5
 #define ERR_PUT_STUDENT 6
 
-#define NAME_LENGTH     25
-#define SURNAME_LENGTH  10
+#define NAME_LENGTH     10
+#define SURNAME_LENGTH  25
 #define SUBJECTS_AMOUNT 4
 
 typedef struct 
